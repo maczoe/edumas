@@ -13,17 +13,20 @@
 				<!-- Default box -->
 				<div class="box">
 					<div class="box-header with-border">
-						<h3 class="box-title">Home</h3>
+						<h3 class="box-title">Panel principal</h3>
 
 						<div class="box-tools pull-right">
-							<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+							<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Minimizar">
 								<i class="fa fa-minus"></i></button>
-							<button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+							<button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Cerrar">
 								<i class="fa fa-times"></i></button>
 						</div>
 					</div>
 					<div class="box-body">
-						{{ trans('adminlte_lang::message.logged') }}. Start creating your amazing application!
+						{{ trans('adminlte_lang::message.logged') }}. 
+						<p>
+							Bienvenido a la aplicación Edumas, puede acceder a las funciones del sistema a través del panel de navegación.
+						</p>
 					</div>
 					<!-- /.box-body -->
 				</div>

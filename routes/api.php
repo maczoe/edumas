@@ -22,4 +22,13 @@ Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
 
     //Please do not remove this if you want adminlte:route and adminlte:link commands to works correctly.
     #adminlte_api_routes
+    //REST API Routes
+        Route::get('registration/api/groups', [
+            'as' => 'api_get_groups',
+            'uses' => 'admin\RegistrationController@getGroups'
+        ]);
+        Route::get('registration/api/subjects', [
+            'as' => 'api_get_subjects',
+            'uses' => 'admin\RegistrationController@getSubjects'
+        ]);
 });

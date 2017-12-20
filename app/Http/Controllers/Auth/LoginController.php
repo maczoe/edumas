@@ -68,9 +68,14 @@ class LoginController extends Controller
      */
     protected function attemptLogin(Request $request)
     {
-        if ($this->username() === 'email') return $this->attemptLoginAtAuthenticatesUsers($request);
-        if ( ! $this->attemptLoginAtAuthenticatesUsers($request)) {
-            return $this->attempLoginUsingUsernameAsAnEmail($request);
+        if ($this->username() === 'email') {
+            return $this->attemptLoginAtAuthenticatesUsers($request);
+        } else {
+           if ($this->attempLoginUsingUsernameAsAnEmail($request)) {
+              return true;
+           } else {
+              return $this->attemptLoginAtAuthenticatesUsers($request);
+           }
         }
         return false;
     }
