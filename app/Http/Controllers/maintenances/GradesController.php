@@ -63,6 +63,6 @@ class GradesController extends Controller
         
         \Illuminate\Support\Facades\Session::flash('alert', 'Grado eliminado con éxito');
         
-        return redirect()->route('maintenances.grades.index');
+        return redirect()->route('grades.index');
     }
 }

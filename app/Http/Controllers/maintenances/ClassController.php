@@ -97,6 +97,6 @@ class ClassController extends Controller
 
         \Illuminate\Support\Facades\Session::flash('alert', 'Clase eliminada con éxito');
 
-        return redirect()->route('maintenances.classes.index');
+        return redirect()->route('classes.index');
     }
 }

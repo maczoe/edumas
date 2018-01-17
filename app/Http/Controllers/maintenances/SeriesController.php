@@ -102,6 +102,6 @@ class SeriesController extends Controller
         
         Session::flash('alert', 'Serie eliminada con éxito');
         
-        return redirect()->route('maintenances.series.index');
+        return redirect()->route('series.index');
     }
 }

@@ -24,7 +24,7 @@ class SubjectsController extends Controller
     
     public function store(\Illuminate\Http\Request $request) {
         $this->validate($request, [
-            "title" => "required|min:5|max:50|unique:subjects",
+            "title" => "required|min:3|max:50|unique:subjects",
             "min_mark" => "integer|min:0|max:100"
         ]);
         
@@ -45,7 +45,7 @@ class SubjectsController extends Controller
     public function update($id, \Illuminate\Http\Request $request) {
         $subject = \App\Models\Subject::findOrFail($id);
         $this->validate($request, [
-            "title" => "required|min:5|max:50|unique:subjects,title,".$subject->id,
+            "title" => "required|min:3|max:50|unique:subjects,title,".$subject->id,
             "min_mark" => "integer|min:0|max:100"
         ]);
         
@@ -65,6 +65,6 @@ class SubjectsController extends Controller
         
         \Illuminate\Support\Facades\Session::flash('alert', 'Curso eliminado con éxito');
         
-        return redirect()->route('maintenances.subjects.index');
+        return redirect()->route('subjects.index');
     }
 }

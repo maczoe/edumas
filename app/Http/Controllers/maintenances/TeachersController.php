@@ -27,8 +27,8 @@ class TeachersController extends Controller
             "id_number" => "required|min:5|max:50|unique:teachers",
             "first_name" => "required|min:5|max:100",
             "last_name" => "min:5|max:100",
-            "phone_number" => "min:8|max:20",
-            "cellphone_number" => "min:8|max:20",
+            "phone_number" => "nullable|min:8|max:20",
+            "cellphone_number" => "nullable|min:8|max:20",
             "gender" => "in:M,F",
             "user_id" => "exists:users"
         ]);
@@ -53,8 +53,8 @@ class TeachersController extends Controller
             "id_number" => "required|min:5|max:50|unique:teachers,id_number,".$teacher->id,
             "first_name" => "required|min:2|max:100",
             "last_name" => "min:2|max:100",
-            "phone_number" => "min:8|max:20",
-            "cellphone_number" => "min:8|max:20",
+            "phone_number" => "nullable|min:8|max:20",
+            "cellphone_number" => "nullable|min:8|max:20",
             "gender" => "in:M,F",
             "user_id" => "exists:users"
         ]);
@@ -75,6 +75,6 @@ class TeachersController extends Controller
         
         \Illuminate\Support\Facades\Session::flash('alert', 'Profesor eliminado con éxito');
         
-        return redirect()->route('maintenances.teachers.index');
+        return redirect()->route('teachers.index');
     }
 }

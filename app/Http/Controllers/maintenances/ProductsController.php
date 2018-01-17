@@ -74,6 +74,6 @@ class ProductsController extends Controller
         
         Session::flash('alert', 'Producto eliminado con éxito');
         
-        return redirect()->route('maintenances.products.index');
+        return redirect()->route('products.index');
     }
 }

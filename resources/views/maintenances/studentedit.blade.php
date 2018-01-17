@@ -24,7 +24,7 @@
     @include('partials/success')
     <!-- /.box-header -->
     <!-- form start -->
-    {!! Form::model($student, ['method' => 'PATCH', 'route' => array('maintenances.students.update', $student->id), 'class' => 'form-horizontal']) !!}
+    {!! Form::model($student, ['method' => 'PATCH', 'route' => array('students.update', $student->id), 'class' => 'form-horizontal']) !!}
         <div class="box-body ">
             <div class="row">
                 <div class="form-group col-md-6">
@@ -100,7 +100,7 @@
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
-            <a class="btn btn-default" href="{{ route('maintenances.students.index') }}">Cancelar</a>
+            <a class="btn btn-default" href="{{ route('students.index') }}">Cancelar</a>
             {!! Form::submit('Guardar', ['class'=>'btn btn-primary pull-right']) !!} 
         </div>
         <!-- /.box-footer -->

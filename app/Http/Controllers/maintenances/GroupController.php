@@ -35,8 +35,6 @@ class GroupController extends Controller {
         $this->validate($request, [
             "section" => "required",
             "grade_id" => "required",
-            "start_date" => "required|date_format:d/m/Y",
-            "end_date" => "required|date_format:d/m/Y|after:start_date",
             "start_time" => "required|date_format:g:i A",
             "end_time" => "required|date_format:g:i A|after:start_time",
         ]);
@@ -65,8 +63,6 @@ class GroupController extends Controller {
         $this->validate($request, [
             "section" => "required",
             "grade_id" => "required",
-            "start_date" => "required|date_format:d/m/Y",
-            "end_date" => "required|date_format:d/m/Y|after:start_date",
             "start_time" => "required|date_format:g:i A",
             "end_time" => "required|date_format:g:i A|after:start_time",
         ]);
@@ -88,7 +84,7 @@ class GroupController extends Controller {
 
         \Illuminate\Support\Facades\Session::flash('alert', 'Grupo eliminado con éxito');
 
-        return redirect()->route('maintenances.groups.index');
+        return redirect()->route('groups.index');
     }
 
 }

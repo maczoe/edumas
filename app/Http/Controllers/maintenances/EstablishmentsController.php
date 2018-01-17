@@ -67,6 +67,6 @@ class EstablishmentsController extends Controller
         
         \Illuminate\Support\Facades\Session::flash('alert', 'Establecimiento eliminado con éxito');
         
-        return redirect()->route('maintenances.establishments.index');
+        return redirect()->route('establishments.index');
     }
 }

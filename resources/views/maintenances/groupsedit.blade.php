@@ -58,20 +58,6 @@
         </div>
         <div class="row">
             <div class="form-group col-md-6">
-                {!! Form::label('start_date', 'Fecha inicio', ['class'=>'col-sm-2 control-label']) !!}
-                <div class="col-lg-10">
-                    {!! Form::date('start_date', $group->start_date->format('d/m/Y'), ['class'=>'form-control', 'id' => 'start_date']) !!}
-                </div>
-            </div>
-            <div class="form-group col-md-6">
-                {!! Form::label('end_date', 'Fecha final', ['class'=>'col-sm-2 control-label']) !!}
-                <div class="col-lg-10">
-                    {!! Form::date('end_date', $group->end_date->format('d/m/Y'), ['class'=>'form-control', 'id' => 'end_date']) !!}
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-6">
                 <div class="bootstrap-timepicker">
                     {!! Form::label('start_time', 'Hora inicio', ['class'=>'col-sm-2 control-label']) !!}
                     <div class="col-lg-10">

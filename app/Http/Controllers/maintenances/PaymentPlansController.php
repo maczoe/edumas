@@ -96,6 +96,6 @@ class PaymentPlansController extends Controller
 
         \Illuminate\Support\Facades\Session::flash('alert', 'Plan de pago eliminado con éxito');
 
-        return redirect()->route('maintenances.payment_plans.index');
+        return redirect()->route('payment_plans.index');
     }
 }

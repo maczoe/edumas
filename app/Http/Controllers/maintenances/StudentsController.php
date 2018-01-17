@@ -25,10 +25,10 @@ class StudentsController extends Controller
     public function store(\Illuminate\Http\Request $request) {
         $this->validate($request, [
             "id_number" => "required|min:5|max:50|unique:students",
-            "first_name" => "required|min:5|max:100",
-            "last_name" => "min:5|max:100",
-            "phone_number" => "min:8|max:20",
-            "cellphone_number" => "min:8|max:20",
+            "first_name" => "required|min:3|max:100",
+            "last_name" => "min:3|max:100",
+            "phone_number" => "nullable|min:8|max:20",
+            "cellphone_number" => "nullable|min:8|max:20",
             "gender" => "in:M,F",
             "user_id" => "exists:users"
         ]);
@@ -51,10 +51,10 @@ class StudentsController extends Controller
         $student = \App\Models\Student::findOrFail($id);
         $this->validate($request, [
             "id_number" => "required|min:5|max:50|unique:students,id_number,".$student->id,
-            "first_name" => "required|min:2|max:100",
-            "last_name" => "min:2|max:100",
-            "phone_number" => "min:8|max:20",
-            "cellphone_number" => "min:8|max:20",
+            "first_name" => "required|min:3|max:100",
+            "last_name" => "min:3|max:100",
+            "phone_number" => "nullable|min:8|max:20",
+            "cellphone_number" => "nullable|min:8|max:20",
             "gender" => "in:M,F",
             "user_id" => "exists:users"
         ]);
@@ -75,6 +75,6 @@ class StudentsController extends Controller
         
         \Illuminate\Support\Facades\Session::flash('alert', 'Estudiante eliminado con éxito');
         
-        return redirect()->route('maintenances.students.index');
+        return redirect()->route('students.index');
     }
 }

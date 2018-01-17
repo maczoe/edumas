@@ -31,7 +31,7 @@ class Student extends Model
         ];
     
     public function setBirthDateAttribute($date) {
-        $this->attributes['birth_date'] = \Carbon\Carbon::createFromFormat('d/m/Y', $date);
+         $this->attributes['birth_date'] = \Carbon\Carbon::createFromFormat('d/m/Y', $date);
     }
     
     public function getBirthDateAttribute($date) {
