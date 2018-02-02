@@ -46,10 +46,6 @@ class Student extends Model
         return $this->belongsTo('App\Models\User');
     }
     
-    public function groups() {
-        return $this->belongsToMany('App\Models\Group');
-    }
-    
     public function paymentPlans() {
         return $this->belongsToMany('App\Models\PaymentPlan', 'students_plans');
     }

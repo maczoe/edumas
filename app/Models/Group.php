@@ -19,46 +19,15 @@ class Group extends Model
      * @var array
      */
     protected $fillable = [
-        'days', 'section', 'start_date',
-        'end_date', 'start_time', 'end_time',
+        'days', 'section', 'start_time', 'end_time',
         'daysWeek', 'grade_id'
         ];
-    protected $dates = [
-        'start_date',
-        'end_date'
-        ];
- 
-    public function setStartDateAttribute($date) {
-        $this->attributes['start_date'] = \Carbon\Carbon::createFromFormat('d/m/Y', $date);
-    }
-    
-    public function getStartDateAttribute($date) {
-        if(is_null($date)) {
-            return \Carbon\Carbon::now();
-        }
-        return $this->asDateTime($date);
-    }
-    
-    public function setEndDateAttribute($date) {
-        $this->attributes['end_date'] = \Carbon\Carbon::createFromFormat('d/m/Y', $date);
-    }
-    
-    public function getEndDateAttribute($date) {
-        if(is_null($date)) {
-            return \Carbon\Carbon::now();
-        }
-        return $this->asDateTime($date);
-    }
     
     public function grade()
     {
         return $this->belongsTo('App\Models\Grade');
     }
     
-    public function students()
-    {
-        return $this->belongsToMany('App\Models\Student');
-    }
     
     public function classes() {
         return $this->hasMany('App\Models\Class');

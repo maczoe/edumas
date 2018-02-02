@@ -24,9 +24,9 @@ class TeachersController extends Controller
     
     public function store(\Illuminate\Http\Request $request) {
         $this->validate($request, [
-            "id_number" => "required|min:5|max:50|unique:teachers",
-            "first_name" => "required|min:5|max:100",
-            "last_name" => "min:5|max:100",
+            "id_number" => "required|min:3|max:50|unique:teachers",
+            "first_name" => "required|min:3|max:100",
+            "last_name" => "min:3|max:100",
             "phone_number" => "nullable|min:8|max:20",
             "cellphone_number" => "nullable|min:8|max:20",
             "gender" => "in:M,F",
@@ -50,9 +50,9 @@ class TeachersController extends Controller
     public function update($id, \Illuminate\Http\Request $request) {
         $teacher = \App\Models\Teacher::findOrFail($id);
         $this->validate($request, [
-            "id_number" => "required|min:5|max:50|unique:teachers,id_number,".$teacher->id,
-            "first_name" => "required|min:2|max:100",
-            "last_name" => "min:2|max:100",
+            "id_number" => "required|min:3|max:50|unique:teachers,id_number,".$teacher->id,
+            "first_name" => "required|min:3|max:100",
+            "last_name" => "min:3|max:100",
             "phone_number" => "nullable|min:8|max:20",
             "cellphone_number" => "nullable|min:8|max:20",
             "gender" => "in:M,F",

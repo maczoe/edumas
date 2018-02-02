@@ -24,8 +24,8 @@ class EstablishmentsController extends Controller
     
     public function store(\Illuminate\Http\Request $request) {
         $this->validate($request, [
-            "id_number" => "required|min:5|max:50|unique:establishments",
-            "name" => "required|min:5|max:100",
+            "id_number" => "required|min:3|max:50|unique:establishments",
+            "name" => "required|min:3|max:100",
             "phone_number" => "min:8|max:20"
         ]);
         
@@ -46,8 +46,8 @@ class EstablishmentsController extends Controller
     public function update($id, \Illuminate\Http\Request $request) {
         $establishment = \App\Models\Establishment::findOrFail($id);
         $this->validate($request, [
-            "id_number" => "required|min:5|max:50|unique:establishments,id_number,".$establishment->id,
-            "name" => "required|min:5|max:100",
+            "id_number" => "required|min:3|max:50|unique:establishments,id_number,".$establishment->id,
+            "name" => "required|min:3|max:100",
             "phone_number" => "min:8|max:20"
         ]);
         

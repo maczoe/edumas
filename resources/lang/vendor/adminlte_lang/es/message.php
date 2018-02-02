@@ -47,7 +47,7 @@ return [
     '503error'                => 'Página de error 503',
     'level'                   => 'Inicio',
     'here'                    => 'Aquí',
-    'descriptionpackage'      => 'Edumas es un sistema de administración educativa',
+    'descriptionpackage'      => 'Sistema de administración educativa',
     'createdby'               => 'Creado por',
     'seecode'                 => 'Ver código en',
     'online'                  => 'En Línea',

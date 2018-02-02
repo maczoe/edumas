@@ -112,4 +112,5 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('maintenances/payment_plans', 'maintenances\PaymentPlansController');
         Route::resource('maintenances/products', 'maintenances\ProductsController');
         Route::resource('maintenances/series', 'maintenances\SeriesController');
+        Route::resource('maintenances/periods', 'maintenances\PeriodsController');
 });

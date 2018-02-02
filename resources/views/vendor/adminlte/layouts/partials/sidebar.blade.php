@@ -55,6 +55,7 @@
             <li class="{{ set_active(['maintenances/grades']) }}"><a href="{{ route('grades.index') }}"><i class="fa fa-tasks"></i> <span>Grados</span></a></li>
             <li class="{{ set_active(['maintenances/groups']) }}"><a href="{{ route('groups.index') }}"><i class="fa fa-users"></i><span>Grupos</span></a></li>
             <li class="{{ set_active(['maintenances/classes']) }}"><a href="{{ route('classes.index') }}"><i class="fa fa-pencil-square-o"></i> <span>Clases</span></a></li>
+            <li class="{{ set_active(['maintenances/periods']) }}"><a href="{{ route('periods.index') }}"><i class="fa fa-calendar"></i><span>Ciclos escolares</span></a></li>
             <li class="{{ set_active(['maintenances/payment_plans']) }}"><a href="{{ route('payment_plans.index') }}"><i class="fa fa-money"></i><span>Planes de pago</span></a></li>
             <li class="{{ set_active(['maintenances/products']) }}"><a href="{{ route('products.index') }}"><i class="fa fa-barcode"></i> <span>Productos</span></a></li>
             <li class="{{ set_active(['maintenances/series']) }}"><a href="{{ route('series.index') }}"><i class="fa fa-table"></i> <span>Series</span></a></li>

@@ -1,7 +1,7 @@
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')
-    Mantenimiento de Grupos
+    Mantenimiento de Ciclos Escolares
 @endsection
 
 @section('styles')
@@ -9,7 +9,7 @@
 @endsection
 
 @section('contentheader_title')
-    Crear, Eliminar o Modificar Grupos de Estudiantes
+    Crear, Eliminar o Modificar Ciclos Escolares
 @endsection
 
 @section('main-content')
@@ -17,38 +17,34 @@
     <div class="col-xs-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Lista de Grupos</h3>
-                <a href="{{ route('groups.create') }}" class="btn btn-success" style='margin-left: 20px;'><i class="fa fa-plus"></i> Nuevo</a>
+                <h3 class="box-title">Lista de Ciclos Escolares</h3>
+                <a href="{{ route('periods.create') }}" class="btn btn-success" style='margin-left: 20px;'><i class="fa fa-plus"></i> Nuevo</a>
             </div>
             @include('partials/errors')
             @include('partials/success')
             <!-- /.box-header -->
             <div class="box-body table-responsive">
-                <table id="groups" class="table table-bordered table-hover">
+                <table id="periods" class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>Secci&oacute;n</th>
-                            <th>Grado</th>
-                            <th>D&iacute;as</th>
-                            <th>Hora Inicio</th>
-                            <th>Hora Final</th>
+                            <th>Nombre</th>
+                            <th>Fecha Inicio</th>
+                            <th>Fecha Final</th>
                             <th >Acciones</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($groups as $group)
+                        @foreach($periods as $period)
                         <tr>
-                            <td><a href="{{ route('groups.show', $group->id) }}">{{ $group->section }}</a></td>
-                            <td>{{ $group->grade->name }}</td>
-                            <td>{{ implode(',', array_keys($group->daysWeek)) }}</td>
-                            <td>{{ $group->start_time }}</td>
-                            <td>{{ $group->end_time }}</td>
+                            <td><a href="{{ route('periods.show', $period->id) }}">{{ $period->name }}</a></td>
+                            <td>{{ $period->start_date->format('d/m/Y') }}</td>
+                            <td>{{ $period->end_date->format('d/m/Y') }}</td>
                             <td style="width: 100px;">
-                                <a href="{{ route('groups.edit', $group->id) }}" class="btn btn-block btn-primary"><i class="fa fa-pencil"></i> Editar</a>
+                                <a href="{{ route('periods.edit', $period->id) }}" class="btn btn-block btn-primary"><i class="fa fa-pencil"></i> Editar</a>
                             </td>
                             <td style="width: 100px;">
-                                {{ Form::open(array('method'=>'DELETE', 'route'=>array('groups.destroy', $group->id))) }}
+                                {{ Form::open(array('method'=>'DELETE', 'route'=>array('periods.destroy', $period->id))) }}
                                 <button type="submit" class="btn btn-block btn-danger" id="delete-button"><i class="fa fa-trash "></i> Eliminar</button>
                                 {{ Form::close() }}
                             </td>
@@ -70,9 +66,9 @@
 
 <script>
 $(document).ready(function () {
-    $('#groups').DataTable({
+    $('#periods').DataTable({
         "columnDefs": [
-            {"targets": [5, 6], "orderable": false, "searchable": false}
+            {"targets": [3, 4], "orderable": false, "searchable": false}
         ],
         "language": {
             "url": '{{ asset("/js/datatables/spanish.json") }}'
