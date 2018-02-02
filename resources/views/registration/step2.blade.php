@@ -78,6 +78,14 @@
             </div>
             </div>
         </div>
+        <div id="periods_" class="row" hidden>
+            <div class="form-group col-md-12">
+            {!! Form::label('period', 'Ciclo Escolar', ['class'=>'col-sm-2 control-label']) !!}
+            <div class="col-lg-10">
+                {!! Form::select('period', [], null, ['class'=>'form-control select2', 'aria-hidden'=>'true', 'style' =>'width: 100%;', 'placeholder' => 'Seleccione un ciclo escolar']) !!}
+            </div>
+            </div>
+        </div>
         <div id="subjects_" class="row" hidden>
             <div class="form-group col-md-12">
             {!! Form::label('subjects', 'Cursos', ['class'=>'col-sm-2 control-label']) !!}
@@ -121,6 +129,20 @@ $(document).ready(function () {
         });
     });
     $("select[name=group]").change(function() {
+        $.ajax({
+            url: '{{ route('api_get_periods') }}',
+            method: 'GET',
+            success: function(data) {
+                $("#periods_").slideDown(); 
+                $('#period').empty();
+                $('select[name=period]').append($('<option>').text("Seleccione un grupo").attr('value', null));
+                $.each(data.periods, function(key, value) {
+                $('#period').append($('<option>').text(value).attr('value', key));
+                });
+        }
+        });
+    });
+    $("select[name=period]").change(function() {
         $.ajax({
             url: '{{ route('api_get_subjects') }}',
             method: 'GET',

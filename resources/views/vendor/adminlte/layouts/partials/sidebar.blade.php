@@ -35,7 +35,7 @@
             <li class="{{ set_active(['home']) }}"><a href="{{ url("/home") }}"><i class="fa fa-dashboard"></i> <span>Inicio</span></a></li>
         <li class="{{ set_active(['registration*']) }}"><a href="{{ route("registration1") }}"><i class="fa fa-pencil"></i> <span>Inscripción</span></a></li>
         <li class="{{ set_active(['payments*']) }}"><a href="{{ route("payments") }}"><i class="fa fa-calendar-check-o"></i> <span>Pagos Mensuales</span></a></li>
-        <li class="{{ set_active(['attendances']) }}"><a href="#"><i class="fa fa-check-square"></i> <span>Asistencia</span></a></li>
+        <!-- <li class="{{ set_active(['attendances']) }}"><a href="#"><i class="fa fa-check-square"></i> <span>Asistencia</span></a></li>
         <li class="{{ set_active(['marks']) }}"><a href="{{ route("marks") }}"><i class="fa fa-table"></i> <span>Notas</span></a></li>
         <li class="treeview {{ set_active(['cash/*']) }}">
           <a href="#"><i class="fa fa-money"></i> <span>Caja</span> <i class="fa fa-angle-left pull-right"></i></a>
@@ -44,7 +44,7 @@
             <li class="{{ set_active(['cash/spendings']) }}"><a href="#"><i class="fa fa-minus-square"></i> <span>Gastos</span></a></li>
             <li class="{{ set_active(['cash/deposits']) }}"><a href="#"><i class="fa fa-bank"></i> <span>Depositos</span></a></li>
           </ul>
-        </li>
+        </li> -->
         <li class="treeview {{ set_active(['maintenances/*']) }}">
           <a href="#"><i class="fa fa-database"></i> <span>Mantenimientos</span> <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
@@ -61,7 +61,7 @@
             <li class="{{ set_active(['maintenances/series']) }}"><a href="{{ route('series.index') }}"><i class="fa fa-table"></i> <span>Series</span></a></li>
           </ul>
         </li>
-        <li class="treeview {{ set_active(['reports/*']) }}">
+        <!-- <li class="treeview {{ set_active(['reports/*']) }}">
           <a href="#"><i class="fa fa-copy"></i> <span>Reportes</span> <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
             <li class="{{ set_active(['reports/student']) }}"><a href="#"><i class="fa fa-user-plus"></i><span>Reporte de Alumnos</span></a></li>
@@ -71,7 +71,7 @@
             <li class="{{ set_active(['reports/attendances']) }}"><a href="#"><i class="fa fa-check-square-o"></i><span>Reporte de Asistencias</span></a></li>
             <li class="{{ set_active(['reports/marks']) }}"><a href="#"><i class="fa fa-file"></i><span>Reporte de Notas</span></a></li>
           </ul>
-        </li>
+        </li> -->
 
             <!-- Optionally, you can add icons to the links -->
             {{-- <li class="active"><a href="{{ url('home') }}"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.home') }}</span></a></li>

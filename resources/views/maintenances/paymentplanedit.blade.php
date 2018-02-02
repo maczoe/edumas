@@ -73,7 +73,7 @@
             <div class="form-group col-md-6">
                     {!! Form::label('period', 'Periodo', ['class'=>'col-sm-2 control-label']) !!}
                     <div class="col-lg-10">
-                        {!! Form::select('period', ['weekly' => 'Semanal', 'monthly' => 'Mensual', 'total' => 'Total', 'registration' => 'Inscripción'], null, ['class'=>'form-control select2', 'aria-hidden'=>'true', 'style' =>'width: 100%;']) !!}
+                        {!! Form::select('period', ['monthly' => 'Mensual', 'total' => 'Total', 'registration' => 'Inscripción'], null, ['class'=>'form-control select2', 'aria-hidden'=>'true', 'style' =>'width: 100%;']) !!}
                     </div>
                     <!-- /.input group -->
             </div>

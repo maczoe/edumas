@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\Contracts\PaymentServiceContract;
 use \App\Models\PaymentPlan;
+use Carbon\Carbon;
 
 class RegistrationController extends Controller {
 
@@ -14,6 +15,7 @@ class RegistrationController extends Controller {
     private $establishment_assign = 'ESTABLISHMENT_ASSIGN';
     private $group_assign = 'GROUP_ASSIGN';
     private $plans_assign = 'PLAN_ASSIGN';
+    private $period_assign = 'PERIOD_ASSIGN';
     private $registraton_assign = 'REGISTRATION_ASSIGN';
     
     /*
@@ -41,9 +43,9 @@ class RegistrationController extends Controller {
         if ($student_option == 'new')
         {
             $this->validate($request, [
-                "id_number" => "required|min:5|max:50|unique:students",
-                "first_name" => "required|min:5|max:100",
-                "last_name" => "min:5|max:100",
+                "id_number" => "required|min:3|max:50|unique:students",
+                "first_name" => "required|min:3|max:100",
+                "last_name" => "min:3|max:100",
                 "phone_number" => "nullable|min:8|max:20",
                 "birth_date" => "required|date_format:d/m/Y",
                 "cellphone_number" => "nullable|min:8|max:20",
@@ -105,13 +107,15 @@ class RegistrationController extends Controller {
             "establishment" => "required|exists:establishments,id",
             "grade" => "required|exists:grades,id",
             "subjects" => "required|array|exists:subjects,id",
-            "group" => "required|exists:groups,id"
+            "group" => "required|exists:groups,id",
+            "period" => "required|exists:periods,id"
         ]);
 
         $establishment = $request->get('establishment');
         $grade = $request->get('grade');
         $subjects = $request->get('subjects');
         $group = $request->get('group');
+        $period = $request->get('period');
         $classes = \App\Models\Class_::where('establishment_id', '=', $establishment)
                 ->where('group_id', '=', $group)
                 ->whereIn('subject_id', $subjects)
@@ -125,6 +129,7 @@ class RegistrationController extends Controller {
         Session::put($this->classes_assign, $classes);
         Session::put($this->establishment_assign, $establishment);
         Session::put($this->group_assign, $group);
+        Session::put($this->period_assign, $period);
         return redirect()->route('registration3');
     }
 
@@ -197,6 +202,7 @@ class RegistrationController extends Controller {
         $option = Session::get($this->student_option);
         $establishment = Session::get($this->establishment_assign);
         $group = Session::get($this->group_assign);
+        $period = Session::get($this->period_assign);
         $subjects = \App\Models\Class_::whereIn('id', $classes)->groupBy('subject_id')->get()->pluck('subject_id');
         foreach ($subjects as $subject)
         {
@@ -220,7 +226,7 @@ class RegistrationController extends Controller {
         {
             $this->saveNewStudent($student);
         }
-        $this->assignGroup($student, $group);
+        $this->assignGroup($student, $group, $period);
         $this->assignPlans($student, $plans, $registration->id);
         $dummy = new \App\Models\Establishment();
         $dummy->id = $establishment;
@@ -290,9 +296,13 @@ class RegistrationController extends Controller {
         $student->save();
     }
 
-    public function assignGroup(\App\Models\Student $student, $group)
+    public function assignGroup(\App\Models\Student $student, $group, $period)
     {
-        $student->groups()->sync([$group], false);
+        $registration = new \App\Models\Registration;
+        $registration->group_id = $group;
+        $registration->student_id = $student->id;
+        $registration->period_id = $period;
+        $registration->save();
     }
 
     public function assignPlans(\App\Models\Student $student, $plans, $registration)
@@ -311,7 +321,6 @@ class RegistrationController extends Controller {
     {
         $grade = $request->get('grade');
         $groups = \App\Models\Group::where('grade_id', '=', $grade)
-                ->whereDate('end_date', '>=', \Carbon\Carbon::today()->toDateString())
                 ->get();
         $data = array();
         foreach ($groups as $group)
@@ -319,6 +328,18 @@ class RegistrationController extends Controller {
             $data[$group->id] = $group->name;
         }
         return response()->json(['groups' => $data]);
+    }
+
+    public function getPeriods()
+    {
+        $periods = \App\Models\Period::whereDate('end_date', '>=', Carbon::today()->toDateString())
+                ->get();
+        $data = array();
+        foreach ($periods as $period)
+        {
+            $data[$period->id] = $period->name;
+        }
+        return response()->json(['periods' => $data]);
     }
 
     public function getSubjects(\Illuminate\Http\Request $request)
