@@ -43,6 +43,7 @@ class PaymentsController extends Controller {
     }
     
     public function doPayment() {
+        //TODO Buscar siguiente pago de estudiante
         $payment = new Payment();
         $payment->serie_id = 1;
         $payment->document_number = 5;
@@ -63,7 +64,7 @@ class PaymentsController extends Controller {
         return view('payments/invoice')->withPayment($payment);
     }
     
-    //Re imprimir recibo
+    //Re imprimir recibo 
     public function reprint(Request $request) {
         $id = $request->get('id');
         $payment = \App\Models\Payment::findOrFail($id);
