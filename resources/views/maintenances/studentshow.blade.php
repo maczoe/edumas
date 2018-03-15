@@ -34,6 +34,20 @@
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
+                    {!! Form::label('personal_code', 'Código', ['class'=>'col-sm-2 control-label']) !!}
+                    <div class="col-lg-10">
+                        {!! Form::text('personal_code', null, ['class'=>'form-control', 'disabled']) !!}
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    {!! Form::label('uic', 'CUI', ['class'=>'col-sm-2 control-label']) !!}
+                    <div class="col-lg-10">
+                        {!! Form::text('uic', null, ['class'=>'form-control', 'disabled']) !!}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
                     {!! Form::label('first_name', 'Nombre', ['class'=>'col-sm-2 control-label']) !!}
                     <div class="col-lg-10">
                         {!! Form::text('first_name', null, ['class'=>'form-control', 'disabled']) !!}

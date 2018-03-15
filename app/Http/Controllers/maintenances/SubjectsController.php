@@ -13,19 +13,26 @@ class SubjectsController extends Controller
     }
     
      public function show($id) {
-        $subject = \App\Models\Subject::findOrFail($id);
-        return view('maintenances/subjectshow')->withSubject($subject);
+        $data = array(
+            'grades' => \App\Models\Grade::all()->pluck('name', 'id'),
+            'subject' => \App\Models\Subject::findOrFail($id)
+        );
+        return view('maintenances/subjectshow')->with($data);
     }
     
     public function create() {
-        $subject = new \App\Models\Subject();
-        return view('maintenances/subjectcreate')->withSubject($subject);
+        $data = array(
+            'grades' => \App\Models\Grade::all()->pluck('name', 'id'),
+            'subject' => new \App\Models\Subject()
+        );
+        return view('maintenances/subjectcreate')->with($data);
     }
     
     public function store(\Illuminate\Http\Request $request) {
         $this->validate($request, [
             "title" => "required|min:3|max:50|unique:subjects",
-            "min_mark" => "integer|min:0|max:100"
+            "min_mark" => "integer|min:0|max:100",
+            "grade_id" => "integer|exists:grades,id",
         ]);
         
         $input = $request->all();
@@ -38,15 +45,19 @@ class SubjectsController extends Controller
     }
     
     public function edit($id) {
-        $subject = \App\Models\Subject::findOrFail($id);
-        return view('maintenances/subjectedit')->withSubject($subject);
+        $data = array(
+            'grades' => \App\Models\Grade::all()->pluck('name', 'id'),
+            'subject' => \App\Models\Subject::findOrFail($id)
+        );
+        return view('maintenances/subjectedit')->with($data);
     }
     
     public function update($id, \Illuminate\Http\Request $request) {
         $subject = \App\Models\Subject::findOrFail($id);
         $this->validate($request, [
             "title" => "required|min:3|max:50|unique:subjects,title,".$subject->id,
-            "min_mark" => "integer|min:0|max:100"
+            "min_mark" => "integer|min:0|max:100",
+            "grade_id" => "integer|exists:grades,id",
         ]);
         
         $input = $request->all();

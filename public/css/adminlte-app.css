@@ -20,7 +20,7 @@ body {
 }
 body {
   font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -5563,7 +5563,7 @@ fieldset[disabled] .btn-yahoo.active {
 body,
 label,
 .checkbox label {
-  font-weight: 300;
+  font-weight: 400;
 }
 .error-page {
   background-color: #ecf0f5;

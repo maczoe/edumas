@@ -77,6 +77,6 @@ class Group extends Model
     }
     
     public function getNameAttribute() {
-        return $this->section.' ('.$this->start_time.'-'.$this->end_time.')';
+        return $this->grade->name.'-'.$this->section.' ('.$this->start_time.'-'.$this->end_time.')';
     }
 }

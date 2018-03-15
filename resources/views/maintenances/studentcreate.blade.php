@@ -10,7 +10,7 @@
 @endsection
 
 @section('contentheader_title')
-    crea un nuevo estudiante
+    Crea un nuevo estudiante
 @endsection
 
 @section('main-content')
@@ -37,6 +37,20 @@
                     {!! Form::label('id_number', 'Carnet', ['class'=>'col-sm-2 control-label']) !!}
                     <div class="col-lg-10">
                         {!! Form::text('id_number', null, ['class'=>'form-control']) !!}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    {!! Form::label('personal_code', 'Código', ['class'=>'col-sm-2 control-label']) !!}
+                    <div class="col-lg-10">
+                        {!! Form::text('personal_code', null, ['class'=>'form-control']) !!}
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    {!! Form::label('uic', 'CUI', ['class'=>'col-sm-2 control-label']) !!}
+                    <div class="col-lg-10">
+                        {!! Form::text('uic', null, ['class'=>'form-control']) !!}
                     </div>
                 </div>
             </div>

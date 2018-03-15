@@ -6,6 +6,8 @@ use \App\Models\Student;
 use \App\Models\Payment;
 use \Carbon\Carbon;
 use \App\Models\PaymentDetail;
+use \App\Models\Establishment;
+use \App\Models\Grade;
 
 class PaymentsController extends Controller {
 
@@ -19,7 +21,9 @@ class PaymentsController extends Controller {
     public function index()
     {
         $data = array(
-            'students' => Student::all()->pluck('idname', 'id')
+            'students' => Student::all()->pluck('idname', 'id'),
+            'establishments' => Establishment::pluck('name', 'id'),
+            'grades' => Grade::pluck('name', 'id')
         );
         return view('payments/payments')->with($data);
     }
@@ -29,6 +33,8 @@ class PaymentsController extends Controller {
     {
         $this->validate($request, [
             "student" => "required|exists:students,id",
+            "establishment" => "required|exists:students,id",
+            "grade" => "required|exists:students,id",
         ]);
         $student_id = $request->get('student');
         $student = Student::findOrFail($student_id);
@@ -71,8 +77,13 @@ class PaymentsController extends Controller {
         return view('payments/invoice')->withPayment($payment);
     }
     
-    public function cancel() {
-        
+    public function cancel(Request $request) {
+        $payment_id = $request->get('id');
+        $payment = \App\Models\Payment::findOrFail($payment_id);
+        $payment->status = 'Anulado';
+        $payment->save();
+        \Illuminate\Support\Facades\Session::flash('alert', 'Pago anulado exitosamente');
+        return redirect()->route('payments');
     }
 
 }

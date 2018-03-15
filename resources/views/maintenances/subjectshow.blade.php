@@ -59,6 +59,14 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+        <div class="form-group col-md-6">
+            {!! Form::label('grade_id', 'Grado', ['class'=>'col-sm-2 control-label']) !!}
+            <div class="col-lg-10">
+                {!! Form::select('grade_id', $grades, null, ['class'=>'form-control', 'aria-hidden'=>'true', 'disabled']) !!}
+            </div>
+        </div>
+    </div>    
     </div>
     <!-- /.box-body -->
     <div class="box-footer">

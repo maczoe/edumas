@@ -23,6 +23,7 @@
     @include('partials/errors')
     <div class="box-body">
         <h4><i class='glyphicon glyphicon-user'></i>&nbsp;Asignación de plan de pagos para el estudiante:</h4>
+        @if($student->id_number!==null)
         <div class="row">
             <div class="form-group col-md-6">
                 <div class="col-sm-2">
@@ -33,6 +34,7 @@
                 </div>
             </div>
         </div>
+        @endif
         <div class="row">
             <div class="form-group col-md-6">
                 <div class="col-sm-2">

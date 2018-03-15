@@ -25,6 +25,8 @@ class StudentsController extends Controller
     public function store(\Illuminate\Http\Request $request) {
         $this->validate($request, [
             "id_number" => "required|min:3|max:50|unique:students",
+            "personal_code" => "max:100",
+            "uic" => "max:100",
             "first_name" => "required|min:3|max:100",
             "last_name" => "min:3|max:100",
             "phone_number" => "nullable|min:8|max:20",
@@ -51,6 +53,8 @@ class StudentsController extends Controller
         $student = \App\Models\Student::findOrFail($id);
         $this->validate($request, [
             "id_number" => "required|min:3|max:50|unique:students,id_number,".$student->id,
+            "personal_code" => "max:100",
+            "uic" => "max:100",
             "first_name" => "required|min:3|max:100",
             "last_name" => "min:3|max:100",
             "phone_number" => "nullable|min:8|max:20",

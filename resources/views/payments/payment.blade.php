@@ -67,8 +67,18 @@
             <tr>
                 <td>Operador en Computadoras</td>
                 <td>01/07/2017</td>
-                <td>Q 0.00</td>
-                <td>Q 500.00</td>
+                <td>
+                    <div class="input-group">
+                        <span class="input-group-addon"><strong>Q</strong></span>
+                    {!! Form::number('fault', 0.00, ['class'=>'form-control']) !!}
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group">
+                        <span class="input-group-addon"><strong>Q</strong></span>
+                    {!! Form::number('price', 100.00, ['class'=>'form-control']) !!}
+                    </div>
+                </td>
             </tr>
         </table>
         <hr>
@@ -92,7 +102,8 @@
                     <th>No. Recibo</th>
                     <th>Fecha</th>
                     <th>Monto</th>
-                    <th >Acciones</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
                     <th></th>
                 </tr>
             </thead>
@@ -102,11 +113,16 @@
                     <td>{{ $pay->document_series.'-'.$pay->document_number }}</td>
                     <td>{{ $pay->date_time->format('d/m/Y h:i A') }}</td>
                     <td>{{ $pay->paymentCurrency }}</td>
+                    <td>{{ $pay->status }}</td>
                     <td style="width: 100px;">
+                        @if($pay->status!='Anulado')
                         <a href="{{ route('payments.reprint', ['id' =>$pay->id]) }}" target="_blank" class="btn btn-block btn-primary"><i class="fa fa-print"></i> Re-imprimir</a>
+                        @endif
                     </td>
                     <td style="width: 100px;">
+                        @if($pay->status!='Anulado')
                         <a href="{{ route('payments.cancel', ['id' =>$pay->id]) }}" class="btn btn-block btn-danger"><i class="fa fa-undo"></i> Anular</a>
+                        @endif
                     </td>
                 </tr>
                 @endforeach
@@ -127,12 +143,18 @@
 $(document).ready(function () {
     $('#payments').DataTable({
         "columnDefs": [
-            {"targets": [3, 4], "orderable": false, "searchable": false}
+            {"targets": [4, 5], "orderable": false, "searchable": false}
         ],
         "language": {
             "url": '{{ asset("/js/datatables/spanish.json") }}'
         },
         "lengthMenu": [10, 20, 50]
+    });
+    $('.btn-danger').click(function (e) {
+        var result = confirm('¿Esta seguro que desea anular este registro?')
+        if (!result) {
+            e.preventDefault();
+        }
     });
 });
 $('#alert').delay(3000).slideUp(300);

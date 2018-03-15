@@ -13,18 +13,29 @@
 @endsection
 
 @section('main-content')
-@include('partials/errors')
-@include('partials/success')
 <!-- Datos del alumno -->
 {!! Form::open(['method' => 'POST', 'url' => route('payments'), 'class' => 'form-horizontal']) !!}
 <div id="box1" class="box box-primary">
     <div class="box-header with-border">
         <h3 class="box-title">Consultar pagos del alumno</h3>
     </div>
+    @include('partials/errors')
+    @include('partials/success')
     <div class="box-body">
+        <div>
+            <br>
+            {!! Form::label('establishment', 'Establecimiento', ['class'=>'control-label']) !!}
+            {!! Form::select('establishment', $establishments, null, ['class'=>'form-control select2', 'aria-hidden'=>'true', 'style' =>'width: 100%;']) !!}
+        </div>
         <div id="search_student">
             <br>
+            {!! Form::label('student', 'Alumno', ['class'=>'control-label']) !!}
             {!! Form::select('student', $students, null, ['class'=>'form-control select2', 'aria-hidden'=>'true', 'style' =>'width: 100%;']) !!}
+        </div>
+        <div>
+            <br>
+            {!! Form::label('grade', 'Grado', ['class'=>'control-label']) !!}
+            {!! Form::select('grade', $grades, null, ['class'=>'form-control select2', 'aria-hidden'=>'true', 'style' =>'width: 100%;']) !!}
         </div>
         <hr>
         {!! Form::submit('Buscar', ['class'=>'btn btn-primary pull-right']) !!} 

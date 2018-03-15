@@ -16,7 +16,7 @@
 <!-- Horizontal Form -->
 <div class="box box-primary">
     <div class="box-header with-border">
-        <h3 class="box-title">Datos del producto: {{ $serie->serie }}</h3>
+        <h3 class="box-title">Datos de la serie: {{ $serie->serie }}</h3>
     </div>
 
     @include('partials/errors')

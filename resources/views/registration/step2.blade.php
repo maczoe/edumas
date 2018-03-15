@@ -23,6 +23,7 @@
     @include('partials/errors')
     <div class="box-body">
         <h4><i class='glyphicon glyphicon-user'></i>&nbsp;Asignación de curso para el estudiante:</h4>
+        @if($student->id_number!==null)
         <div class="row">
             <div class="form-group col-md-6">
                 <div class="col-sm-2">
@@ -33,6 +34,7 @@
                 </div>
             </div>
         </div>
+        @endif
         <div class="row">
             <div class="form-group col-md-6">
                 <div class="col-sm-2">
@@ -135,7 +137,7 @@ $(document).ready(function () {
             success: function(data) {
                 $("#periods_").slideDown(); 
                 $('#period').empty();
-                $('select[name=period]').append($('<option>').text("Seleccione un grupo").attr('value', null));
+                $('select[name=period]').append($('<option>').text("Seleccione un ciclo escolar").attr('value', null));
                 $.each(data.periods, function(key, value) {
                 $('#period').append($('<option>').text(value).attr('value', key));
                 });
@@ -154,7 +156,7 @@ $(document).ready(function () {
                 $("#subjects_").slideDown(); 
                 $('#subjects').empty();
                 $.each(data.subjects, function(key, value) {
-                $('#subjects').append($('<option>').text(value).attr('value', key));
+                $('#subjects').append($('<option selected>').text(value).attr('value', key));
                 });
         }
         });

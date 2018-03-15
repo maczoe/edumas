@@ -31,18 +31,19 @@
             <br>
             {!! Form::select('student', $students, $student->id, ['class'=>'form-control select2', 'aria-hidden'=>'true', 'style' =>'width: 100%;']) !!}
         </div>
+        <br/>
         <div id="new_student">
             <div class="row">
                 <div class="form-group col-md-6">
-                    {!! Form::label('id', 'ID', ['class'=>'col-sm-2 control-label']) !!}
+                    {!! Form::label('personal_code', 'Código', ['class'=>'col-sm-2 control-label']) !!}
                     <div class="col-lg-10">
-                        {!! Form::text('id', null, ['class'=>'form-control', 'disabled']) !!}
+                        {!! Form::text('personal_code', null, ['class'=>'form-control']) !!}
                     </div>
                 </div>
                 <div class="form-group col-md-6">
-                    {!! Form::label('id_number', 'Carnet', ['class'=>'col-sm-2 control-label']) !!}
+                    {!! Form::label('uic', 'CUI', ['class'=>'col-sm-2 control-label']) !!}
                     <div class="col-lg-10">
-                        {!! Form::text('id_number', $student->id_number, ['class'=>'form-control']) !!}
+                        {!! Form::text('uic', null, ['class'=>'form-control']) !!}
                     </div>
                 </div>
             </div>

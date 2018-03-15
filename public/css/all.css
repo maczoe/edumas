@@ -1401,7 +1401,7 @@ body {
   font-family: "Roboto", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
-  color: #636b6f;
+  color: #000000;
   background-color: #f5f8fa;
 }
 
@@ -23414,7 +23414,7 @@ fieldset[disabled] .btn-yahoo.active {
 body,
 label,
 .checkbox label {
-  font-weight: 300;
+  font-weight: 400;
 }
 .error-page {
   background-color: #ecf0f5;

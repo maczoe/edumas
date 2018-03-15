@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Session;
 use App\Helpers\Contracts\PaymentServiceContract;
 use \App\Models\PaymentPlan;
 use Carbon\Carbon;
+use DB;
 
 class RegistrationController extends Controller {
 
@@ -43,7 +44,9 @@ class RegistrationController extends Controller {
         if ($student_option == 'new')
         {
             $this->validate($request, [
-                "id_number" => "required|min:3|max:50|unique:students",
+                //"id_number" => "required|min:3|max:50|unique:students",
+                "personal_code" => "max:100",
+                "uic" => "max:100",
                 "first_name" => "required|min:3|max:100",
                 "last_name" => "min:3|max:100",
                 "phone_number" => "nullable|min:8|max:20",
@@ -125,6 +128,12 @@ class RegistrationController extends Controller {
         {
             return redirect()->route('registration2')->withErrors('Error: no existen clases o cursos con estos parámetros');
         }
+        $student = Session::get($this->session_student);
+        $registration_previous = \App\Models\Registration::where('student_id', $student)->where('group_id', $group)->where('period_id', $period)->get();
+        if(!empty($registration_previous)) {
+            return redirect()->route('registration2')->withErrors('Error: este alumno ya esta inscrito y asignado a los cursos correspondientes a este grado');
+        }
+
         Session::put($this->grade_assign, $grade);
         Session::put($this->classes_assign, $classes);
         Session::put($this->establishment_assign, $establishment);
@@ -176,6 +185,7 @@ class RegistrationController extends Controller {
 
             $plan = \App\Models\PaymentPlan::where('grade_id', '=', $grade)
                     ->where('establishment_id', '=', $establishment)
+                    ->where('period', '!=', 'registration')
                     ->where('subject_id', '=', $sub->id)
                     ->get();
             $pl = array();
@@ -202,6 +212,7 @@ class RegistrationController extends Controller {
         $option = Session::get($this->student_option);
         $establishment = Session::get($this->establishment_assign);
         $group = Session::get($this->group_assign);
+        $grade = Session::get($this->grade_assign);
         $period = Session::get($this->period_assign);
         $subjects = \App\Models\Class_::whereIn('id', $classes)->groupBy('subject_id')->get()->pluck('subject_id');
         foreach ($subjects as $subject)
@@ -224,6 +235,8 @@ class RegistrationController extends Controller {
         //proceso para guardar todo en la base de datos
         if ($option == 'new')
         {
+            $p = \App\Models\Period::findOrFail($period);   
+            $student->id_number = $this->generateIdNumber($establishment, $p->name, $grade);
             $this->saveNewStudent($student);
         }
         $this->assignGroup($student, $group, $period);
@@ -356,5 +369,10 @@ class RegistrationController extends Controller {
             $data[$subject->id] = $subject->title;
         }
         return response()->json(['subjects' => $data]);
+    }
+
+    public function generateIdNumber($establishment, $period, $grade) {
+        $id = (DB::select("show table status like 'students'"))[0]->Auto_increment;
+        return $establishment."-".$period."-".$grade."-".$id;
     }
 }
