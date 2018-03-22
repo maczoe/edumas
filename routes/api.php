@@ -34,16 +34,16 @@ Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
 });
 
 Route::get('registration/api/groups', [
-            'as' => 'api_get_groups',
-            'uses' => 'admin\RegistrationController@getGroups'
-        ]);
+    'as' => 'api_get_groups',
+    'uses' => 'admin\RegistrationController@getGroups'
+]);
 
 Route::get('registration/api/periods', [
-            'as' => 'api_get_periods',
-            'uses' => 'admin\RegistrationController@getPeriods'
-        ]);
+    'as' => 'api_get_periods',
+    'uses' => 'admin\RegistrationController@getPeriods'
+]);
 
-        Route::get('registration/api/subjects', [
-            'as' => 'api_get_subjects',
-            'uses' => 'admin\RegistrationController@getSubjects'
-        ]);
+Route::get('registration/api/subjects', [
+    'as' => 'api_get_subjects',
+    'uses' => 'admin\RegistrationController@getSubjects'
+]);

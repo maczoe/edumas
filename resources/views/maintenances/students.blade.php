@@ -58,6 +58,14 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="row">
+                    <div class="col-sm-5">
+                        Mostrando registros del {{ $students->firstItem()}} al {{ $students->lastItem()}} de un total de {{ $students->total() }} registros
+                    </div>
+                    <div class="col-sm-7 text-right">
+                        {{ $students->links() }}
+                    </div>
+                </div>
             </div>
             <!-- /.box-body -->
         </div>
@@ -76,6 +84,8 @@ $(document).ready(function () {
         "columnDefs": [
             {"targets": [6, 7], "orderable": false, "searchable": false}
         ],
+        "paginate" : false,
+        "info" : false,
         "language": {
             "url": '{{ asset("/js/datatables/spanish.json") }}'
         },
