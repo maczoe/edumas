@@ -15,9 +15,56 @@ use Exception;
 
 class PaymentService implements PaymentServiceContract {
 
-    public function makePaymentAcademic(Student $student, Establishment $establishment, PaymentPlan $plan)
+    public function makePaymentAcademic(Student $student, $details, PaymentPlan $plan, Establishment $establishment, $comment)
     {
-        
+        DB::beginTransaction();
+        try {
+            //Se crea la instancia del pago a registrar
+            $payment = new Payment();
+            $payment->user_id = Auth::user()->id;
+            $payment->date_time = Carbon::now();
+            $payment->comment = $comment;
+            $payment->student_id = $student->id;
+            $payment->customer = $student->fullName;
+            $payment->payment = 0;
+            $payment->payment_plan_id = $plan->id;
+
+            //Correlativo de series de recibos para la inscripción
+            $serie = $this->nextSeries('payment', $establishment);
+            $payment->document_series = $serie->serie;
+            $payment->document_number = $serie->current;
+            $payment->serie_id = $serie->id;
+            
+            $payment->save();
+            
+            $total = 0;
+
+            //Se crea el detalle del pago a registrar
+            foreach($details as $det) {
+                $total += $det->amount;
+                if(!isset($date)) {
+                    $date = $det->created_at;
+                }
+                $det->created_at = Carbon::now();
+                $det->payment_id = $payment->id;
+                $det->save();
+            }
+            $payment->payment_date = $date;
+            $payment->payment = $total;
+            $payment->save();
+
+            $det = "PAGO MENSUALIDAD: ".$plan->grade->name.", CORRESPONDIENTE AL MES DE ".strtoupper($date->formatLocalized("%B"));
+
+            //Registrando flujo de caja
+            $this->registerPaymentCashflow($payment, $establishment, $det);
+            
+            DB::commit();
+            return $payment->id;
+        } catch (\Exception $e) {
+            DB::rollback();
+            dd($e);
+            abort(404);
+        }
     }
 
     public function makePaymentRegistration(Student $student, Establishment $establishment, PaymentPlan $registrationPlan)
@@ -36,6 +83,7 @@ class PaymentService implements PaymentServiceContract {
             $payment->date_time = Carbon::now();
             $payment->student_id = $stu->id;
             $payment->payment = $pay;
+            $payment->payment_plan_id = $registrationPlan->id;
             $payment->customer = $stu->fullName;
             
             //Correlativo de series de recibos para la inscripción
@@ -64,7 +112,6 @@ class PaymentService implements PaymentServiceContract {
             return $payment->id;
         } catch (\Exception $e) {
             DB::rollback();
-            dd($e);
             abort(404);
         }
     }

@@ -89,11 +89,13 @@
         }
     }
     </style>
+    <script src="{{ url (mix('/js/app.js')) }}" type="text/javascript"></script>
+    <script src="{{ asset("/js/printThis.js") }}" type="text/javascript"></script>
 </head>
 
 <body>
     <div class="invoice-box">
-        <table cellpadding="0" cellspacing="0">
+        <table id="invoice" cellpadding="0" cellspacing="0">
             <tr class="top">
                 <td colspan="2">
                     <table>
@@ -119,6 +121,7 @@
                             <td>
                                 Cliente: {{ $payment->customer }}<br>
                                 Direcci&oacute;n: {{ $payment->student->address }}
+                                Carnet: {{ $payment->student->id_number }}
                             </td>
                             
                             <td>
@@ -162,10 +165,19 @@
                 </td>
             </tr>
         </table>
-        <div class="row text-center">
-            <a class="btn btn-primary fa fa-home" href="{{ url('/') }}">&nbsp;Regresar</a>
-            <a class="btn btn-primary fa fa-print" onclick="window.print()">&nbsp;Imprimir</a>
-        </div>
     </div>
+    <div class="row text-center">
+            <a class="btn btn-primary fa fa-home" href="{{ url('/') }}">&nbsp;Regresar</a>
+            <a class="btn btn-primary fa fa-print"">&nbsp;Imprimir</a>
+        </div>
+<script>
+$(document).on("click", ".fa-print", function() {
+    $('.invoice-box').printThis({
+        printContainer: true,
+        importCSS: true,            
+        importStyle: true,
+    });
+});
+</script>
 </body>
 </html>

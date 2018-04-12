@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdatePayments extends Migration
+class UpdatePaymentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class UpdatePayments extends Migration
     public function up()
     {
         Schema::table('payments', function (Blueprint $table) {
-            $table->string('status',10)->after('payment')->default('ok');
+            $table->date('payment_date')->after('date_time')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class UpdatePayments extends Migration
      */
     public function down()
     {
-         Schema::table('payments', function (Blueprint $table) {
-            $table->dropColumn('status');
+        Schema::table('payments', function (Blueprint $table) {
+            $table->dropColumn('payment_date');
         });
     }
 }

@@ -87,7 +87,7 @@ Route::group(['middleware' => 'auth'], function () {
             'as' => 'payments.cancel'
         ]);
         
-        Route::get('payments-do', [
+        Route::post('payments-do', [
             'uses' => 'admin\PaymentsController@doPayment',
             'as' => 'payments.do'
         ]);

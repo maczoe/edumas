@@ -52,10 +52,13 @@
     </div>
 </div>
 <div id="box2" class="box box-primary">
-    {!! Form::open(['method' => 'POST', 'url' => route('payments'), 'class' => 'form-horizontal']) !!}
+    {!! Form::open(['method' => 'POST', 'url' => route('payments.do'), 'class' => 'form-horizontal']) !!}
+    {!! Form::hidden('establishment', $establishment) !!}
+    {!! Form::hidden('student', $student->id) !!}
     <div class="box-header with-border">
         <h3 class="box-title">Realizar pago de mensualidad</h3>
     </div>
+    @if($details)
     <div class="box-body">
         <table class="table table-striped">
             <tr>
@@ -64,31 +67,57 @@
                 <th>Mora</th>
                 <th>Monto</th>
             </tr>
+            <?php $i = 0; ?>
+            @foreach($details as $detail)
             <tr>
-                <td>Operador en Computadoras</td>
-                <td>01/07/2017</td>
+                {!! Form::hidden('id_'.$i, $detail['id']) !!}
+                <td>
+                    {!! Form::text('subject_'.$i, $detail['subject'], ['class'=>'form-control']) !!}
+                </td>
+                <td>
+                    {!! Form::text('date_'.$i, $detail['date']->format('d/m/Y'), ['class'=>'form-control']) !!}
+                </td>
                 <td>
                     <div class="input-group">
                         <span class="input-group-addon"><strong>Q</strong></span>
-                    {!! Form::number('fault', 0.00, ['class'=>'form-control']) !!}
+                    {!! Form::number('fault_'.$i, $detail['fault'], ['class'=>'form-control fault']) !!}
                     </div>
                 </td>
                 <td>
                     <div class="input-group">
                         <span class="input-group-addon"><strong>Q</strong></span>
-                    {!! Form::number('price', 100.00, ['class'=>'form-control']) !!}
+                    {!! Form::number('price_'.$i, $detail['price'], ['class'=>'form-control price']) !!}
                     </div>
                 </td>
             </tr>
+            <?php $i++; ?>
+            @endforeach
+            {!! Form::hidden('i', $i) !!}
         </table>
         <hr>
         <div class="text-right" style="padding-right: 80px">
-            <h4><strong>Total</strong> Q 500.00</h4>
+            <strong><h4 id="total">Total {{ money_format('Q %i', $total) }}</h4></strong>
         </div>
+        <div>
+            <div>
+                    Observaciones:
+            </div>
+            <div>
+            {!! Form::text('comment', '', ['class'=>'form-control']) !!}
+            </div>
+        </div>
+        <br>
         <div class="row text-center">
-            <a class="btn btn-success" href="{{ route('payments.do') }}">Aceptar</a>
+            {!! Form::submit('Aceptar', ['class'=>'btn btn-success']) !!} 
         </div>
     </div>
+    @else
+        <div class="box-body">
+            <div class="alert alert-danger">
+            No se encontró pago pendiente
+            </div>
+        </div>
+    @endif
     {!! Form::close() !!}
 </div>
 <div id="box3" class="box box-primary">
@@ -101,6 +130,7 @@
                 <tr>
                     <th>No. Recibo</th>
                     <th>Fecha</th>
+                    <th>Fecha de pago</th>
                     <th>Monto</th>
                     <th>Estado</th>
                     <th>Acciones</th>
@@ -111,6 +141,7 @@
                 @foreach($payments as $pay)
                 <tr>
                     <td>{{ $pay->document_series.'-'.$pay->document_number }}</td>
+                    <td>{{ $pay->payment_date->format('d/m/Y') }}</td>
                     <td>{{ $pay->date_time->format('d/m/Y h:i A') }}</td>
                     <td>{{ $pay->paymentCurrency }}</td>
                     <td>{{ $pay->status }}</td>
@@ -145,6 +176,7 @@ $(document).ready(function () {
         "columnDefs": [
             {"targets": [4, 5], "orderable": false, "searchable": false}
         ],
+        "order": [[ 2, "desc" ]],
         "language": {
             "url": '{{ asset("/js/datatables/spanish.json") }}'
         },
@@ -156,7 +188,37 @@ $(document).ready(function () {
             e.preventDefault();
         }
     });
+
+    $('.btn-success').click(function (e) {
+        var result = confirm('¿Esta seguro que desea procesar el pago al alumno?')
+        if (!result) {
+            e.preventDefault();
+        }
+    });
 });
+
+function calculeTotal() {
+    var sum = 0;
+    var price = 0;
+    var fault = 0;
+    $(".price").each(function() {
+        price += +$(this).val();
+    });
+    $(".fault").each(function() {
+        fault += +$(this).val();
+    });
+    sum = price + fault;
+    $("#total").html("Total Q "+parseFloat(sum).toFixed(2));
+}
+
+$(document).on("change", ".price", function() {
+    calculeTotal();
+});
+
+$(document).on("change", ".fault", function() {
+    calculeTotal();
+});
+
 $('#alert').delay(3000).slideUp(300);
 </script>
 @endsection

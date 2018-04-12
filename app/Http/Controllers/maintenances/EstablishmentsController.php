@@ -26,7 +26,7 @@ class EstablishmentsController extends Controller
         $this->validate($request, [
             "id_number" => "required|min:1|max:50|unique:establishments",
             "name" => "required|min:3|max:100",
-            "phone_number" => "min:8|max:20"
+            "phone_number" => "nullable|min:8|max:20"
         ]);
         
         $input = $request->all();

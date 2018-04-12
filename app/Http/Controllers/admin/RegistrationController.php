@@ -130,7 +130,7 @@ class RegistrationController extends Controller {
         }
         $student = Session::get($this->session_student);
         $registration_previous = \App\Models\Registration::where('student_id', $student)->where('group_id', $group)->where('period_id', $period)->get();
-        if(!empty($registration_previous)) {
+        if(!$registration_previous->isEmpty()) {
             return redirect()->route('registration2')->withErrors('Error: este alumno ya esta inscrito y asignado a los cursos correspondientes a este grado');
         }
 
