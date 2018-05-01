@@ -23,7 +23,7 @@ class PaymentPlan extends Model
      * @var array
      */
     protected $fillable = [
-        'comment', 'pay_day', 'period',
+        'name', 'comment', 'pay_day', 'period',
         'price', 'fault',
         'grade_id', 'subject_id',
         'establishment_id'

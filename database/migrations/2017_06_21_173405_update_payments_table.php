@@ -18,6 +18,7 @@ class UpdatePaymentsTable extends Migration
             $table->string('status',10)->after('payment')->default('ok');
             $table->text('comment')->after('status')->nullable();
             $table->bigInteger('payment_plan_id')->after('comment')->unsigned()->nullable();
+            $table->date('payment_date')->after('date_time')->nullable();
             
         //Foreign Keys
             $table->foreign('serie_id')->references('id')->on('series');
@@ -40,6 +41,7 @@ class UpdatePaymentsTable extends Migration
             $table->dropColumn('comment');
             $table->dropForeign(['payment_plan_id']);
             $table->dropColumn('payment_plan_id');
+            $table->dropColumn('payment_date');
         });
     }
 }

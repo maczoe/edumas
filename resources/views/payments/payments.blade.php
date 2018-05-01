@@ -37,6 +37,11 @@
             {!! Form::label('grade', 'Grado', ['class'=>'control-label']) !!}
             {!! Form::select('grade', $grades, null, ['class'=>'form-control select2', 'aria-hidden'=>'true', 'style' =>'width: 100%;']) !!}
         </div>
+        <div>
+            <br>
+            {!! Form::label('type', 'Tipo de Pago', ['class'=>'control-label']) !!}
+            {!! Form::select('type', $types, null, ['class'=>'form-control select2', 'aria-hidden'=>'true', 'style' =>'width: 100%;']) !!}
+        </div>
         <hr>
         {!! Form::submit('Buscar', ['class'=>'btn btn-primary pull-right']) !!} 
     </div>

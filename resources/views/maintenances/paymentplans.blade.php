@@ -27,6 +27,7 @@
                 <table id="classes" class="table table-bordered table-hover">
                     <thead>
                         <tr>
+                            <th>Nombre</th>
                             <th>Curso</th>
                             <th>Grado</th>
                             <th>Establecimiento</th>
@@ -40,8 +41,9 @@
                     <tbody>
                         @foreach($plans as $plan)
                         <tr>
-                            <td><a href="{{ route('payment_plans.show', $plan->id) }}">{{ $plan->subject!= null ? $plan->subject->title : $plan->grade->name }}</a></td>
-                            <td>{{ $plan->grade->name }}</td>
+                            <td><a href="{{ route('payment_plans.show', $plan->id) }}">{{ $plan->name }}</a></td>
+                            <td>{{ $plan->subject!= null ? $plan->subject->title : $plan->grade!= null ? $plan->grade->name : '' }}</a></td>
+                            <td>{{ $plan->grade!= null ? $plan->grade->name : '' }}</td>
                             <td>{{ $plan->establishment->name }}</td>
                             <td>{{ $plan->priceCurrency }}</td>
                             <td>{{ $plan->faultCurrency }}</td>
@@ -74,7 +76,7 @@
 $(document).ready(function () {
     $('#classes').DataTable({
         "columnDefs": [
-            {"targets": [6, 7], "orderable": false, "searchable": false}
+            {"targets": [7, 8], "orderable": false, "searchable": false}
         ],
         "language": {
             "url": '{{ asset("/js/datatables/spanish.json") }}'

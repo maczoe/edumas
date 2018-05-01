@@ -25,10 +25,14 @@ class PaymentsController extends Controller {
 
     public function index()
     {
+        $types = new Collection();
+        $types->put(0, 'ACADÉMICO MENSUALIDADES');
+        $types = $types->union(PaymentPlan::whereNull('subject_id')->pluck('name', 'id'));
         $data = array(
             'students' => Student::all()->pluck('idname', 'id'),
             'establishments' => Establishment::pluck('name', 'id'),
-            'grades' => Grade::pluck('name', 'id')
+            'grades' => Grade::pluck('name', 'id'),
+            'types' => $types
         );
         return view('payments/payments')->with($data);
     }
@@ -38,16 +42,17 @@ class PaymentsController extends Controller {
     {
         $this->validate($request, [
             "student" => "required|exists:students,id",
-            "establishment" => "required|exists:students,id",
-            "grade" => "required|exists:students,id",
+            "establishment" => "required|exists:establishments,id",
+            "grade" => "required|exists:grades,id",
         ]);
         $student_id = $request->get('student');
         $establishment_id = $request->get('establishment');
         $grade_id = $request->get('grade');
         $student = Student::findOrFail($student_id);
+        $type = $request->get('type');
         $payments = Payment::where('student_id', $student_id)->whereNotNull('payment_plan_id')->orderBy('payment_date', 'desc')->get();
 
-        $details = self::getActualPaymentDetail($student_id, $establishment_id, $grade_id);
+        $details = self::getActualPaymentDetail($student_id, $establishment_id, $grade_id, $type);
         $total = 0;
         foreach ($details as $det) {
             $total += ($det['price']+$det['fault']);
@@ -109,13 +114,17 @@ class PaymentsController extends Controller {
         return redirect()->route('payments');
     }
 
-    public function getActualPaymentDetail($student, $establishment, $grade) {
+    public function getActualPaymentDetail($student, $establishment, $grade, $type) {
         $details = Array();
-
-        $plans = PaymentPlan::whereHas('students', function($q) use ($student) {
-            $q->where('id', $student);  
-        })->where('establishment_id', $establishment)->where('grade_id', $grade)->where('period', '!=', 'registration')->get();
-
+        if($type==0) {
+            $plans = PaymentPlan::whereHas('students', function($q) use ($student) {
+                $q->where('id', $student);  
+            })->where('establishment_id', $establishment)->where('grade_id', $grade)->where('period', '!=', 'registration')->get();
+        } else {
+            $plans = PaymentPlan::whereHas('students', function($q) use ($student) {
+                $q->where('id', $student);  
+            })->where('id', $type)->get();
+        }
         $i = 0;
         foreach ($plans as $plan) {
             $date = self::getNextPaymentDate($student, $plan);

@@ -81,6 +81,12 @@ class PaymentPlansController extends Controller
 
         $input = $request->all();
 
+        if(!$request->get('grade_id')) {
+            $plan->grade_id = null;
+        }
+        if(!$request->get('subject_id')) {
+            $plan->subject_id = null;
+        }
         $plan->fill($input)->save();
 
         \Illuminate\Support\Facades\Session::flash('alert', 'Plan de pago actualizado con éxito');

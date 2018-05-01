@@ -123,6 +123,7 @@ return array(
         'end_date' => 'Fecha final',
         'section' => 'Sección',
         'grade' => 'Grado',
+        'student' => 'Alumno',
         'days' => 'Días',
         'title' => 'Nombre',
         'price' => 'Precio',

@@ -32,9 +32,9 @@
                 </div>
             </div>
             <div class="form-group col-md-6">
-                {!! Form::label('subject_id', 'Curso', ['class'=>'col-sm-2 control-label']) !!}
+                {!! Form::label('name', 'Nombre', ['class'=>'col-sm-2 control-label']) !!}
                 <div class="col-lg-10">
-                    {!! Form::select('subject_id', $subjects, null, ['class'=>'form-control select2', 'aria-hidden'=>'true', 'style' =>'width: 100%;', 'disabled']) !!}
+                    {!! Form::text('name', null, ['class'=>'form-control', 'disabled']) !!}
                 </div>
             </div>
         </div>
@@ -54,18 +54,9 @@
         </div>
         <div class="row">
             <div class="form-group col-md-6">
-                    {!! Form::label('pay_day', 'Día de pago', ['class'=>'col-sm-2 control-label']) !!}
-                    <div class="col-lg-10">
-                        <div class="input-group number-spinner">
-                        <span class="input-group-btn data-dwn">
-                            <button type="button" class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
-                        </span>
-                        {!! Form::text('pay_day', null, ['class'=>'form-control text-center', 'min'=>'1', 'max'=>'28', 'disabled']) !!}
-                        <span class="input-group-btn data-up">
-                            <button type="button" class="btn btn-default btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
-                        </span>
-                    </div>
-                    <!-- /.input group -->
+                {!! Form::label('subject_id', 'Curso', ['class'=>'col-sm-2 control-label']) !!}
+                <div class="col-lg-10">
+                    {!! Form::select('subject_id', $subjects, null, ['class'=>'form-control select2', 'aria-hidden'=>'true', 'style' =>'width: 100%;', 'disabled']) !!}
                 </div>
             </div>
             <div class="form-group col-md-6">
@@ -97,9 +88,24 @@
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-6">
+                    {!! Form::label('pay_day', 'Día de pago', ['class'=>'col-sm-2 control-label']) !!}
+                    <div class="col-lg-10">
+                        <div class="input-group number-spinner">
+                        <span class="input-group-btn data-dwn">
+                            <button type="button" class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
+                        </span>
+                        {!! Form::text('pay_day', null, ['class'=>'form-control text-center', 'min'=>'1', 'max'=>'28', 'disabled']) !!}
+                        <span class="input-group-btn data-up">
+                            <button type="button" class="btn btn-default btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
+                        </span>
+                    </div>
+                    <!-- /.input group -->
+                </div>
+            </div>
+            <div class="form-group col-md-6">
                 {!! Form::label('comment', 'Comentarios', ['class'=>'col-sm-2 control-label']) !!}
-                <div class="col-lg-12">
+                <div class="col-lg-10">
                     {!! Form::textarea('comment', null, ['class'=>'form-control', 'disabled']) !!}
                 </div>
             </div>
