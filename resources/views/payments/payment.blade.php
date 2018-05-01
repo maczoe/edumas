@@ -131,6 +131,7 @@
                     <th>No. Recibo</th>
                     <th>Fecha</th>
                     <th>Fecha de pago</th>
+                    <th>Observacion</th>
                     <th>Monto</th>
                     <th>Estado</th>
                     <th>Acciones</th>
@@ -143,6 +144,7 @@
                     <td>{{ $pay->document_series.'-'.$pay->document_number }}</td>
                     <td>{{ $pay->payment_date->format('d/m/Y') }}</td>
                     <td>{{ $pay->date_time->format('d/m/Y h:i A') }}</td>
+                    <td>{{ $pay->comment }}</td>
                     <td>{{ $pay->paymentCurrency }}</td>
                     <td>{{ $pay->status }}</td>
                     <td style="width: 100px;">
@@ -174,7 +176,7 @@
 $(document).ready(function () {
     $('#payments').DataTable({
         "columnDefs": [
-            {"targets": [4, 5], "orderable": false, "searchable": false}
+            {"targets": [5, 6], "orderable": false, "searchable": false}
         ],
         "order": [[ 2, "desc" ]],
         "language": {

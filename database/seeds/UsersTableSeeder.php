@@ -19,5 +19,19 @@ class UsersTableSeeder extends Seeder
            'password' => bcrypt('demo'),
            'role' => 'super-admin'
         ]);
+        factory(App\Models\User::class)->create([
+           'name' => 'sarc',
+           'username' => 'sarc',
+           'email' => 'sarc@gmail.com',
+           'password' => bcrypt('SARC180-2006**'),
+           'role' => 'super-admin'
+        ]);
+        factory(App\Models\User::class)->create([
+           'name' => 'putzeys',
+           'username' => 'putzeys',
+           'email' => 'putzeys@gmail.com',
+           'password' => bcrypt('SARC180-2006*'),
+           'role' => 'super-admin'
+        ]);
     }
 }

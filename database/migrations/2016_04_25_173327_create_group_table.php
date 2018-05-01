@@ -15,7 +15,7 @@ class CreateGroupTable extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('grade', 20);
-            $table->string('section', 5);
+            $table->string('section', 50);
             $table->string('days', 50)->nullable();
             $table->string('start_time');
             $table->string('end_time');

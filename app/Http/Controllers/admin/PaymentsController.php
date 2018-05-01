@@ -27,7 +27,7 @@ class PaymentsController extends Controller {
     {
         $types = new Collection();
         $types->put(0, 'ACADÉMICO MENSUALIDADES');
-        $types = $types->union(PaymentPlan::whereNull('subject_id')->pluck('name', 'id'));
+        $types = $types->union(PaymentPlan::where('period', 'total')->whereNull('subject_id')->pluck('name', 'id'));
         $data = array(
             'students' => Student::all()->pluck('idname', 'id'),
             'establishments' => Establishment::pluck('name', 'id'),
@@ -119,7 +119,7 @@ class PaymentsController extends Controller {
         if($type==0) {
             $plans = PaymentPlan::whereHas('students', function($q) use ($student) {
                 $q->where('id', $student);  
-            })->where('establishment_id', $establishment)->where('grade_id', $grade)->where('period', '!=', 'registration')->get();
+            })->where('establishment_id', $establishment)->where('grade_id', $grade)->where('period', '!=', 'registration')->where('period','!=','total')->get();
         } else {
             $plans = PaymentPlan::whereHas('students', function($q) use ($student) {
                 $q->where('id', $student);  
@@ -133,7 +133,7 @@ class PaymentsController extends Controller {
                 $last = Payment::where('payment_plan_id', $plan->id);
                 $details[$i] = [
                     "id" => $plan->id,
-                    "subject" => $plan->subject->title,
+                    "subject" => $plan->subject!=null ? $plan->subject->title:$plan->name,
                     "date" => $date,
                     "price" => $plan->price,
                     "fault" => $fault
