@@ -62,7 +62,7 @@
     <div class="box-body">
         <table class="table table-striped">
             <tr>
-                <th>Curso</th>
+                <th>Grado/Detalle</th>
                 <th>Fecha de Pago</th>
                 <th>Mora</th>
                 <th>Monto</th>

@@ -165,6 +165,9 @@
                 </td>
             </tr>
         </table>
+        <p>
+            Observaciones: {{ $payment->comment }}
+        </p>
     </div>
     <div class="row text-center">
             <a class="btn btn-primary fa fa-home" href="{{ url('/') }}">&nbsp;Regresar</a>
