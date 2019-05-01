@@ -1,0 +1,15 @@
+PASOS PARA ACTUALIZAR SISTEMA EDUMAS
+*usuario: user
+*contraseña de sudo: root
+
+1. buscar el directorio de la página web:
+	cd /var/www/html/edumas
+2. descargar cambios del repositorio GIT:
+    sudo git pull
+    *usuario: macz
+    *contraseña: M4c05_C4f3gitlab
+3. ir al directorio database para actualizar la base de datos:
+    cd database
+4. cargar la base de datos mysql:
+   sudo mysql -u root -p < edumas.sql
+   *contraseña: root
