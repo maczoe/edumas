@@ -31,28 +31,11 @@
                             <th>Nombre</th>
                             <th>Teléfono</th>
                             <th>Dirección</th>
-                            <th >Acciones</th>
+                            <th>Acciones</th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach($establishments as $establishment)
-                        <tr>
-                            <td><a href="{{ route('establishments.show', $establishment->id) }}">{{ $establishment->id_number }}</a></td>
-                            <td>{{ $establishment->name }}</td>
-                            <td>{{ $establishment->phone_number }}</td>
-                            <td>{{ $establishment->address }}</td>
-                            <td>
-                                <a href="{{ route('establishments.edit', $establishment->id) }}" class="btn btn-block btn-primary"><i class="fa fa-pencil"></i> Editar</a>
-                            </td>
-                            <td>
-                                {{ Form::open(array('method'=>'DELETE', 'route'=>array('establishments.destroy', $establishment->id))) }}
-                                <button type="submit" class="btn btn-block btn-danger" id="delete-button"><i class="fa fa-trash "></i> Eliminar</button>
-                                {{ Form::close() }}
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
+                    <!-- ****** SE ELIMINA EL BODY DE LA TABLA YA QUE SE LLENA CON AJAX DATATABLES -->
                 </table>
             </div>
             <!-- /.box-body -->
@@ -69,20 +52,64 @@
 <script>
 $(document).ready(function () {
     $('#establishments').DataTable({
-        "columnDefs": [
+    	// *******  codigo anterior a datatables
+        /*"columnDefs": [
             {"targets": [4, 5], "orderable": false, "searchable": false}
         ],
         "language": {
             "url": '{{ asset("/js/datatables/spanish.json") }}'
         },
         "order": [0, "asc"],
-        "lengthMenu": [10, 20, 50]
-    });
-    $('form').submit(function (e) {
-        var result = confirm('¿Esta seguro que desea eliminar este registro?')
-        if (!result) {
-            e.preventDefault();
-        }
+        "lengthMenu": [10, 20, 50] */
+
+        // ******* Usando laravel datatables
+        "processing": true,
+            "serverSide": true,
+            "ajax": "{{ route('api_get_establishments_datatable') }}",
+            "columns": [
+                // ***** El campo se renderiza para link a show 
+            	{data: 'id', render: function (data, type, row) {
+            		    var route = "{{ route('establishments.index') }}/"+row.id;
+            		    var link = "<a href="+route+">"+row.id_number+"</a>"
+                        return link;
+                    }
+                },
+                {data: 'name', name: 'name'},
+                {data: 'phone_number', name: 'phone_number'},
+                {data: 'address', name: 'address'},
+                // ***** El campo se renderiza para link a edit 
+                {data: 'id', render: function (data, type, row) {
+                	    var route = "{{ route('establishments.index') }}/"+row.id+"/edit";
+                	    var button = "<a href="+route+" class=\"btn btn-block btn-primary\"><i class=\"fa fa-pencil\"></i> Editar</a>";
+                        return button;
+                    }
+                },
+                // ***** El campo se renderiza para funcion delete
+                {data: 'id', render: function (data, type, row) {
+                	    var route = "{{ route('establishments.index') }}/"+row.id;
+                	    var button = "<button type=\"submit\" class=\"btn btn-block btn-danger\" id=\"delete-button\"><i class=\"fa fa-trash \"></i> Eliminar</button>";
+                	    var form = "<form id=\"del\" method=\"POST\" action="+route+" accept-charset=\"UTF-8\"><input name=\"_token\" type=\"hidden\" value=\"{{ Session::token() }}\"><input name=\"_method\" type=\"hidden\" value=\"DELETE\">"+button+"</form>";
+                        return form;
+                    }
+                }
+            ],
+            "language": {
+            	"url": '{{ asset("/js/datatables/spanish.json") }}'
+        	},
+        	"order": [0, "asc"],
+        	"columnDefs": [
+            	{"targets": [4, 5], "orderable": false, "searchable": false}
+        	],
+        	"lengthMenu": [10, 20, 50],
+        	// ******** Los eventos del boton delete se deben aplicar una vez renderizada la tabla 
+        	"initComplete": function(settings, json) {
+    			$('form').submit(function (e) {
+        			var result = confirm('¿Esta seguro que desea eliminar este registro?')
+        			if (!result) {
+            			e.preventDefault();
+        			}
+    			});
+  			}
     });
 });
 $('#alert').delay(3000).slideUp(300);

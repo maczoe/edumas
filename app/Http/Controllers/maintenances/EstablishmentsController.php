@@ -69,4 +69,9 @@ class EstablishmentsController extends Controller
         
         return redirect()->route('establishments.index');
     }
+
+    // ***** Implementacion de datatable API para uso de datatables.js
+    public function getDatatable() {
+    	return datatables()->of(Establishment::all())->make(true);
+    }
 }

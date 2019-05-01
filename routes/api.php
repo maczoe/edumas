@@ -47,3 +47,9 @@ Route::get('registration/api/subjects', [
     'as' => 'api_get_subjects',
     'uses' => 'admin\RegistrationController@getSubjects'
 ]);
+
+//****** Rutas API Datatables **********
+Route::get('maintenances/establishments', [
+    'as' => 'api_get_establishments_datatable',
+    'uses' => 'maintenances\EstablishmentsController@getDatatable'
+]);

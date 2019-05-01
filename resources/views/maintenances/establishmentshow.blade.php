@@ -17,7 +17,7 @@
 
     <!-- /.box-header -->
     <!-- form start -->
-    {!! Form::model($establishment, ['method' => 'POST', 'route' => array('maintenances.establishments.update', $establishment->id), 'class' => 'form-horizontal']) !!}
+    {!! Form::model($establishment, ['method' => 'POST', 'route' => array('establishments.update', $establishment->id), 'class' => 'form-horizontal']) !!}
         <div class="box-body ">
             <div class="row">
                 <div class="form-group col-md-6">
@@ -64,7 +64,7 @@
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
-            <a class="btn btn-default" href="{{ route('maintenances.establishments.index') }}">Cancelar</a>
+            <a class="btn btn-default" href="{{ route('establishments.index') }}">Cancelar</a>
         </div>
         <!-- /.box-footer -->
     {!! Form::close() !!}
