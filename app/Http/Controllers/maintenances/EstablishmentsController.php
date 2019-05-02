@@ -8,8 +8,9 @@ use \App\Models\Establishment;
 class EstablishmentsController extends Controller
 {
     public function index() {
-        $establishments = Establishment::all();
-        return view('maintenances/establishments', ['establishments' => $establishments]);
+        // $establishments = Establishment::all();
+        // return view('maintenances/establishments', ['establishments' => $establishments]);
+        return view('maintenances/establishments');
     }
     
      public function show($id) {

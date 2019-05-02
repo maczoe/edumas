@@ -71,4 +71,9 @@ class PeriodsController extends Controller
         
         return redirect()->route('periods.index');
     }
+
+    // ***** Implementacion de datatable API para uso de datatables.js
+    public function getDatatable() {
+    	return datatables()->of(Period::all())->make(true);
+    }
 }

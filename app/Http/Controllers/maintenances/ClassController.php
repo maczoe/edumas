@@ -99,4 +99,9 @@ class ClassController extends Controller
 
         return redirect()->route('classes.index');
     }
+
+    // ***** Implementacion de datatable API para uso de datatables.js
+    public function getDatatable() {
+    	return datatables()->of(Class_::all())->make(true);
+    }
 }

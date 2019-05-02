@@ -104,4 +104,9 @@ class SeriesController extends Controller
         
         return redirect()->route('series.index');
     }
+
+    // ***** Implementacion de datatable API para uso de datatables.js
+    public function getDatatable() {
+    	return datatables()->of(Serie::all())->make(true);
+    }
 }

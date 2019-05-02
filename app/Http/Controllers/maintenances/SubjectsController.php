@@ -78,4 +78,9 @@ class SubjectsController extends Controller
         
         return redirect()->route('subjects.index');
     }
+
+    // ***** Implementacion de datatable API para uso de datatables.js
+    public function getDatatable() {
+    	return datatables()->of(Subject::all())->make(true);
+    }
 }

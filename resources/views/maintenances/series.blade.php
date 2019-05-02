@@ -36,7 +36,7 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <!-- <tbody>
                         @foreach($series as $serie)
                         <tr>
                             <td><a href="{{ route('series.show', $serie->id) }}">{{ $serie->serie }}</a></td>
@@ -53,7 +53,7 @@
                                 {{ Form::close() }}
                             </td>
                         </tr>
-                        @endforeach
+                        @endforeach -->
                     </tbody>
                 </table>
             </div>
@@ -71,21 +71,66 @@
 <script>
 $(document).ready(function () {
     $('#series').DataTable({
-        "columnDefs": [
+        /* "columnDefs": [
             {"targets": [5, 6], "orderable": false, "searchable": false}
         ],
         "language": {
             "url": '{{ asset("/js/datatables/spanish.json") }}'
         },
         "order": [0, "asc"],
-        "lengthMenu": [10, 20, 50]
+        "lengthMenu": [10, 20, 50] */
+
+        "processing": true,
+            "serverSide": true,
+            "ajax": "{{ route('api_get_series_datatable') }}",
+            "columns": [
+                // ***** El campo se renderiza para link a show 
+            	{data: 'id', render: function (data, type, row) {
+            		    var route = "{{ route('series.index') }}/"+row.id;
+            		    var link = "<a href="+route+">"+row.serie+"</a>"
+                        return link;
+                    }
+                },
+                {data: 'current', name: 'current'},
+                {data: 'min', name: 'min'},
+                {data: 'max', name: 'max'},
+                {data: 'type', name: 'type'},
+                
+                // ***** El campo se renderiza para link a edit 
+                {data: 'id', render: function (data, type, row) {
+                	    var route = "{{ route('series.index') }}/"+row.id+"/edit";
+                	    var button = "<a href="+route+" class=\"btn btn-block btn-primary\"><i class=\"fa fa-pencil\"></i> Editar</a>";
+                        return button;
+                    }
+                },
+                // ***** El campo se renderiza para funcion delete
+                {data: 'id', render: function (data, type, row) {
+                	    var route = "{{ route('series.index') }}/"+row.id;
+                	    var button = "<button type=\"submit\" class=\"btn btn-block btn-danger\" id=\"delete-button\"><i class=\"fa fa-trash \"></i> Eliminar</button>";
+                	    var form = "<form id=\"del\" method=\"POST\" action="+route+" accept-charset=\"UTF-8\"><input name=\"_token\" type=\"hidden\" value=\"{{ Session::token() }}\"><input name=\"_method\" type=\"hidden\" value=\"DELETE\">"+button+"</form>";
+                        return form;
+                    }
+                }
+            ],
+            "language": {
+            	"url": '{{ asset("/js/datatables/spanish.json") }}'
+        	},
+        	"order": [0, "asc"],
+        	"columnDefs": [
+            	{"targets": [4, 5], "orderable": false, "searchable": false}
+        	],
+        	"lengthMenu": [10, 20, 50],
+        	// ******** Los eventos del boton delete se deben aplicar una vez renderizada la tabla 
+        	"initComplete": function(settings, json) {
+    			$('form').submit(function (e) {
+        			var result = confirm('¿Esta seguro que desea eliminar este registro?')
+        			if (!result) {
+            			e.preventDefault();
+        			}
+    			});
+  			}
     });
-    $('form').submit(function (e) {
-        var result = confirm('¿Esta seguro que desea eliminar este registro?')
-        if (!result) {
-            e.preventDefault();
-        }
-    });
+    
 });
 $('#alert').delay(3000).slideUp(300);
 </script>

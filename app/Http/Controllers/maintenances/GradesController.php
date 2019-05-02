@@ -65,4 +65,9 @@ class GradesController extends Controller
         
         return redirect()->route('grades.index');
     }
+
+    // ***** Implementacion de datatable API para uso de datatables.js
+    public function getDatatable() {
+    	return datatables()->of(Grade::all())->make(true);
+    }
 }

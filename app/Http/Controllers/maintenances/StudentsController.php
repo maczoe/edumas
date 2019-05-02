@@ -81,4 +81,9 @@ class StudentsController extends Controller
         
         return redirect()->route('students.index');
     }
+
+    // ***** Implementacion de datatable API para uso de datatables.js
+    public function getDatatable() {
+    	return datatables()->of(Student::all())->make(true);
+    }
 }

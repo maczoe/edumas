@@ -77,4 +77,9 @@ class TeachersController extends Controller
         
         return redirect()->route('teachers.index');
     }
+
+    // ***** Implementacion de datatable API para uso de datatables.js
+    public function getDatatable() {
+    	return datatables()->of(Teacher::all())->make(true);
+    }
 }
