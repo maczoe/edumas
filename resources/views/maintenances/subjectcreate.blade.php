@@ -54,7 +54,7 @@ Crea un nuevo curso
                     <span class="input-group-btn data-dwn">
                         <button type="button" class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
                     </span>
-                    {!! Form::text('min_mark', "60", ['class'=>'form-control text-center', 'min'=>'0', 'max'=>'100']) !!}
+                    {!! Form::text('min_mark', "60", ['class'=>'form-control text-center', 'min'=>'0', 'max'=>'100') !!}
                     <span class="input-group-btn data-up">
                         <button type="button" class="btn btn-default btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
                     </span>

@@ -8,8 +8,7 @@ class PaymentPlansController extends Controller
 {
     public function index()
     {
-        $plans = \App\Models\PaymentPlan::all();
-        return view('maintenances/paymentplans', ['plans' => $plans]);
+        return view('maintenances/paymentplans');
     }
 
     public function show($id)
@@ -103,5 +102,16 @@ class PaymentPlansController extends Controller
         \Illuminate\Support\Facades\Session::flash('alert', 'Plan de pago eliminado con éxito');
 
         return redirect()->route('payment_plans.index');
+    }
+
+    // ***** Implementacion de datatable API para uso de datatables.js
+    public function getDatatable() {
+    	return datatables()
+    			->of(\App\Models\PaymentPlan::
+    			with("subject")
+    			->with("grade")
+    			->with("establishment")
+    			->get())
+    			->make(true);
     }
 }

@@ -8,8 +8,7 @@ class ClassController extends Controller
 {
     public function index()
     {
-        $classes = \App\Models\Class_::all();
-        return view('maintenances/classes', ['classes' => $classes]);
+        return view('maintenances/classes');
     }
 
     public function show($id)
@@ -102,6 +101,6 @@ class ClassController extends Controller
 
     // ***** Implementacion de datatable API para uso de datatables.js
     public function getDatatable() {
-    	return datatables()->of(Class_::all())->make(true);
+    	return datatables()->of(\App\Models\Class_::all())->make(true);
     }
 }

@@ -94,7 +94,7 @@ $(document).ready(function () {
         	},
         	"order": [0, "asc"],
         	"columnDefs": [
-            	{"targets": [4, 5], "orderable": false, "searchable": false}
+            	{"targets": [3, 4], "orderable": false, "searchable": false}
         	],
         	"lengthMenu": [10, 20, 50],
         	// ******** Los eventos del boton delete se deben aplicar una vez renderizada la tabla 

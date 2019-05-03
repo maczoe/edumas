@@ -37,26 +37,7 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <!-- <tbody>
-                        @foreach($classes as $clas)
-                        <tr>
-                            <td><a href="{{ route('classes.show', $clas->id) }}">{{ $clas->subject->title }}</a></td>
-                            <td>{{ $clas->teacher->fullname }}</td>
-                            <td>{{ $clas->group->name }}</td>
-                            <td>{{ $clas->establishment->name }}</td>
-                            <td>{{ $clas->start_time }}</td>
-                            <td>{{ $clas->end_time }}</td>
-                            <td style="width: 100px;">
-                                <a href="{{ route('classes.edit', $clas->id) }}" class="btn btn-block btn-primary"><i class="fa fa-pencil"></i> Editar</a>
-                            </td>
-                            <td style="width: 100px;">
-                                {{ Form::open(array('method'=>'DELETE', 'route'=>array('classes.destroy', $clas->id))) }}
-                                <button type="submit" class="btn btn-block btn-danger" id="delete-button"><i class="fa fa-trash "></i> Eliminar</button>
-                                {{ Form::close() }}
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody> -->
+                    <!-- ****** SE ELIMINA EL BODY DE LA TABLA YA QUE SE LLENA CON AJAX DATATABLES -->
                 </table>
             </div>
             <!-- /.box-body -->
@@ -120,7 +101,7 @@ $(document).ready(function () {
         	},
         	"order": [0, "asc"],
         	"columnDefs": [
-            	{"targets": [4, 5], "orderable": false, "searchable": false}
+            	{"targets": [6, 7], "orderable": false, "searchable": false}
         	],
         	"lengthMenu": [10, 20, 50],
         	// ******** Los eventos del boton delete se deben aplicar una vez renderizada la tabla 
@@ -131,8 +112,7 @@ $(document).ready(function () {
             			e.preventDefault();
         			}
     			});
-              }
-              
+              }       
     });
     
 });

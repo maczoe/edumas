@@ -32,21 +32,7 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <!-- <tbody>
-                        @foreach($grades as $grade)
-                        <tr>
-                            <td><a href="{{ route('grades.show', $grade->id) }}">{{ $grade->name }}</a></td>
-                            <td style="width: 100px;">
-                                <a href="{{ route('grades.edit', $grade->id) }}" class="btn btn-block btn-primary"><i class="fa fa-pencil"></i> Editar</a>
-                            </td>
-                            <td style="width: 100px;">
-                                {{ Form::open(array('method'=>'DELETE', 'route'=>array('grades.destroy', $grade->id))) }}
-                                <button type="submit" class="btn btn-block btn-danger" id="delete-button"><i class="fa fa-trash "></i> Eliminar</button>
-                                {{ Form::close() }}
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody> -->
+                    <!-- ****** SE ELIMINA EL BODY DE LA TABLA YA QUE SE LLENA CON AJAX DATATABLES -->
                 </table>
             </div>
             <!-- /.box-body -->
@@ -104,7 +90,7 @@ $(document).ready(function () {
         	},
         	"order": [0, "asc"],
         	"columnDefs": [
-            	{"targets": [4, 5], "orderable": false, "searchable": false}
+            	{"targets": [1, 2], "orderable": false, "searchable": false}
         	],
         	"lengthMenu": [10, 20, 50],
         	// ******** Los eventos del boton delete se deben aplicar una vez renderizada la tabla 

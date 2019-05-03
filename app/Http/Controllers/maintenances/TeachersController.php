@@ -8,8 +8,7 @@ use App\Models\Teacher;
 class TeachersController extends Controller
 {
     public function index() {
-        $teachers = Teacher::all();
-        return view('maintenances/teachers', ['teachers' => $teachers]);
+        return view('maintenances/teachers');
     }
     
      public function show($id) {

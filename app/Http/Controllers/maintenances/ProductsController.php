@@ -11,8 +11,7 @@ use Illuminate\Support\Facades\Session;
 class ProductsController extends Controller
 {
     public function index() {
-        $products = Product::all();
-        return view('maintenances/products', ['products' => $products]);
+        return view('maintenances/products');
     }
     
      public function show($id) {
@@ -75,5 +74,10 @@ class ProductsController extends Controller
         Session::flash('alert', 'Producto eliminado con éxito');
         
         return redirect()->route('products.index');
+    }
+
+    // ***** Implementacion de datatable API para uso de datatables.js
+    public function getDatatable() {
+    	return datatables()->of(Product::all())->make(true);
     }
 }

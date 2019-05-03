@@ -7,8 +7,7 @@ class GroupController extends Controller {
 
     public function index()
     {
-        $groups = Group::all();
-        return view('maintenances/groups', ['groups' => $groups]);
+        return view('maintenances/groups');
     }
 
     public function show($id)
@@ -85,6 +84,11 @@ class GroupController extends Controller {
         \Illuminate\Support\Facades\Session::flash('alert', 'Grupo eliminado con éxito');
 
         return redirect()->route('groups.index');
+    }
+
+    // ***** Implementacion de datatable API para uso de datatables.js
+    public function getDatatable() {
+    	return datatables()->of(Group::with("grade")->get())->make(true);
     }
 
 }

@@ -38,27 +38,7 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <!-- <tbody>
-                        @foreach($plans as $plan)
-                        <tr>
-                            <td><a href="{{ route('payment_plans.show', $plan->id) }}">{{ $plan->name }}</a></td>
-                            <td>{{ $plan->subject!= null ? $plan->subject->title : $plan->grade!= null ? $plan->grade->name : '' }}</a></td>
-                            <td>{{ $plan->grade!= null ? $plan->grade->name : '' }}</td>
-                            <td>{{ $plan->establishment->name }}</td>
-                            <td>{{ $plan->priceCurrency }}</td>
-                            <td>{{ $plan->faultCurrency }}</td>
-                            <td>{{ $plan->pay_day }}</td>
-                            <td style="width: 100px;">
-                                <a href="{{ route('payment_plans.edit', $plan->id) }}" class="btn btn-block btn-primary"><i class="fa fa-pencil"></i> Editar</a>
-                            </td>
-                            <td style="width: 100px;">
-                                {{ Form::open(array('method'=>'DELETE', 'route'=>array('payment_plans.destroy', $plan->id))) }}
-                                <button type="submit" class="btn btn-block btn-danger" id="delete-button"><i class="fa fa-trash "></i> Eliminar</button>
-                                {{ Form::close() }}
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody> -->
+                    <!-- ****** SE ELIMINA EL BODY DE LA TABLA YA QUE SE LLENA CON AJAX DATATABLES -->
                 </table>
             </div>
             <!-- /.box-body -->
@@ -96,16 +76,19 @@ $(document).ready(function () {
                         return link;
                     }
                 },
-                {data: 'subject', 
-                    name: 'subject'/* ,
-                    render: function ( data, type, row ) {
-                        var dateSplit = data.split('-');
-                        console.log(data);
-                        return data.title;
-                    } */
+                {data: 'subject', render: function (data, type, row) {
+            		    if(row.subject!=null) {
+            		    	return row.subject.name;
+            		    } else {
+            		    	return row.grade.name;
+            		    }
+                    }
                 },
-                {data: 'phone_number', name: 'phone_number'},
-                {data: 'address', name: 'address'},
+                {data: 'grade.name', name: 'grade'},
+                {data: 'establishment.name', name: 'establishment'},
+                {data: 'price', name: 'price'},
+                {data: 'fault', name: 'fault'},
+                {data: 'pay_day', name: 'pay_day'},
 
                 // ***** El campo se renderiza para link a edit 
                 {data: 'id', render: function (data, type, row) {
@@ -128,7 +111,7 @@ $(document).ready(function () {
         	},
         	"order": [0, "asc"],
         	"columnDefs": [
-            	{"targets": [4, 5], "orderable": false, "searchable": false}
+            	{"targets": [7, 8], "orderable": false, "searchable": false}
         	],
         	"lengthMenu": [10, 20, 50],
         	// ******** Los eventos del boton delete se deben aplicar una vez renderizada la tabla 

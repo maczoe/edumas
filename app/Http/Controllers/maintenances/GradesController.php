@@ -8,8 +8,7 @@ use App\Models\Grade;
 class GradesController extends Controller
 {
     public function index() {
-        $grades = Grade::all();
-        return view('maintenances/grades', ['grades' => $grades]);
+        return view('maintenances/grades');
     }
     
      public function show($id) {

@@ -11,8 +11,7 @@ use Illuminate\Support\Facades\Session;
 class SeriesController extends Controller
 {
     public function index() {
-        $series = Serie::all();
-        return view('maintenances/series', ['series' => $series]);
+        return view('maintenances/series');
     }
     
      public function show($id) {

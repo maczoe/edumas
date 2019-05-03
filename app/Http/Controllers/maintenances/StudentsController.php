@@ -8,8 +8,7 @@ use App\Models\Student;
 class StudentsController extends Controller
 {
     public function index() { 
-        $students = Student::paginate(10);
-        return view('maintenances/students', ['students' => $students]);
+        return view('maintenances/students');
     }
     
      public function show($id) {

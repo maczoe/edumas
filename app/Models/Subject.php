@@ -23,7 +23,7 @@ class Subject extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'comment', 'min_mark, grade_id'
+        'title', 'comment', 'min_mark', 'grade_id'
         ];
     
     public function classes() {

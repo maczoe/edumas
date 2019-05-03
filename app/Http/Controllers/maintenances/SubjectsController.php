@@ -8,8 +8,7 @@ use App\Models\Subject;
 class SubjectsController extends Controller
 {
     public function index() {
-        $subjects = Subject::all();
-        return view('maintenances/subjects', ['subjects' => $subjects]);
+        return view('maintenances/subjects');
     }
     
      public function show($id) {
@@ -61,7 +60,6 @@ class SubjectsController extends Controller
         ]);
         
         $input = $request->all();
-        
         $subject->fill($input)->save();
         
         \Illuminate\Support\Facades\Session::flash('alert', 'Curso actualizado con éxito');

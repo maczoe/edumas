@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\Session;
 class PeriodsController extends Controller
 {
     public function index() {
-        $periods = Period::all();
-        return view('maintenances/periods', ['periods' => $periods]);
+        return view('maintenances/periods');
     }
     
      public function show($id) {

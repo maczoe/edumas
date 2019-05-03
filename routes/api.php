@@ -93,3 +93,13 @@ Route::get('maintenances/series', [
     'as' => 'api_get_series_datatable',
     'uses' => 'maintenances\SeriesController@getDatatable'
 ]);
+
+Route::get('maintenances/groups', [
+    'as' => 'api_get_groups_datatable',
+    'uses' => 'maintenances\GroupController@getDatatable'
+]);
+
+Route::get('maintenances/products', [
+    'as' => 'api_get_products_datatable',
+    'uses' => 'maintenances\ProductsController@getDatatable'
+]);
