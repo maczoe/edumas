@@ -45,6 +45,7 @@
         <!-- /.box -->
     </div>
 </div>
+@include('comments/comments-footer')
 @endsection
 
 @section('custom_scripts')
